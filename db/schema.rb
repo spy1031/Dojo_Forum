@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418093223) do
+ActiveRecord::Schema.define(version: 20180418094753) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title", null: false
@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 20180418093223) do
 
   create_table "categories", force: :cascade do |t|
     t.string "type"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+    t.integer "status"
+    t.index ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id"
   end
 
   create_table "replies", force: :cascade do |t|
