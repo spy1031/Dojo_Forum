@@ -10,6 +10,7 @@ class CreateArticles < ActiveRecord::Migration[5.1]
       t.datetime :last_reply_time
       t.integer :category_id
       t.integer :user_id
+      t.timestamps
     end
 
     add_index :articles, :user_id

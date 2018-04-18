@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20180418125339) do
     t.datetime "last_reply_time"
     t.integer "category_id"
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_articles_on_category_id"
     t.index ["last_reply_time"], name: "index_articles_on_last_reply_time"
     t.index ["user_id"], name: "index_articles_on_user_id"
@@ -29,12 +31,16 @@ ActiveRecord::Schema.define(version: 20180418125339) do
 
   create_table "categories", force: :cascade do |t|
     t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "friend_id"
     t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id"
   end
 
@@ -42,6 +48,8 @@ ActiveRecord::Schema.define(version: 20180418125339) do
     t.integer "user_id"
     t.integer "article_id"
     t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["article_id", "user_id"], name: "index_replies_on_article_id_and_user_id"
   end
 

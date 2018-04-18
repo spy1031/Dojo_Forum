@@ -4,6 +4,7 @@ class CreateFriendships < ActiveRecord::Migration[5.1]
       t.integer :user_id
       t.integer :friend_id
       t.integer :status
+      t.timestamps
     end
 
     add_index :friendships, [:user_id, :friend_id]
