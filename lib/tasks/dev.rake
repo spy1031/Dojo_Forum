@@ -8,7 +8,10 @@ namespace :dev do
       user = User.new(
         email: "#{name}@example.co",
         password: "12345678",
-        role: "normal"
+        role: "normal",
+        name: name,
+        introduction: FFaker::Lorem::sentence(30),
+        gender: ["male","female"].sample
       )
 
       user.save!
