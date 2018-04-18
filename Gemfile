@@ -34,8 +34,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 #Use gem bootstrap-sass to set css
 gem 'bootstrap-sass', '~> 3.3.7'
-# Use Capistrano for deployment
+#Use jquery-rails for bootstrap-sass and ajax
+gem 'jquery-rails'
 
+# Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
