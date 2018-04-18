@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="article_list">
+    <table class="table">
+      <thead>
+        <th>Replies count</th>
+        <th>Title</th>
+        <th>Last replied at</th>
+        <th>Viewed count</th>
+      </thead>
+      <tbody>
+        <% @articles.each do |article|%>
+          <tr>article.reply_count</tr>
+          <tr>article.title</tr>
+          <tr>article.last_reply_time</tr>
+          <tr>article.watch_count</tr>
+        <% end %>
+      </tbody>
+    </table>
+      
+  </div>
+</div>
