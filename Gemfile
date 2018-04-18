@@ -36,7 +36,8 @@ gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.7'
 #Use jquery-rails for bootstrap-sass and ajax
 gem 'jquery-rails'
-
+#Use fake to generate test data
+gem 'ffaker'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
