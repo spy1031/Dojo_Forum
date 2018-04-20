@@ -8,10 +8,11 @@
 
 #================== Create default user ==============#
 User.create(name: "admin", email: "admin@example.com", password: "12345678", role: "admin")
-
+puts "Ceate default user"
 #================== Create default category =============#
 category_list = %w(戰士 薩滿 盜賊 聖騎士 獵人 德魯伊 術師 法師 牧師)
 
 category_list.each do |category|
-  Category.create(type: category)
+  Category.create(name: category)
 end
+puts "Create default categories"
