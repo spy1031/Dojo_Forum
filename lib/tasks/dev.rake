@@ -18,5 +18,5 @@ namespace :dev do
       puts user.email
     end
   end
-
+  
 end
