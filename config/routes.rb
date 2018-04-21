@@ -7,4 +7,6 @@ Rails.application.routes.draw do
       get :feeds
     end
   end
+
+  resources :users
 end
