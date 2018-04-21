@@ -18,5 +18,21 @@ namespace :dev do
       puts user.email
     end
   end
-  
+
+  task fake_article: :environment do
+    Article.destroy_all
+    User.all.each do |user|
+      category = Category.all.sample
+      article = user.articles.build(
+        title: category.name,
+        content: FFaker::Lorem::sentence(100),
+        authority: 0,
+        status: true,
+        last_reply_time: Time.zone.now,
+        category_id: category.id)
+      article.save!
+      puts "#{user.name} create a article"
+    end
+    
+  end
 end

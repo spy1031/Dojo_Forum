@@ -16,11 +16,14 @@
         <th>Viewed count</th>
       </thead>
       <tbody>
+          
         <% @articles.each do |article|%>
-          <tr>article.reply_count</tr>
-          <tr>article.title</tr>
-          <tr>article.last_reply_time</tr>
-          <tr>article.views_count</tr>
+          <tr>
+            <td><%= article.replies_count %></td>
+            <td><%= article.title %></td>
+            <td><%= article.last_reply_time %></td>
+            <td><%= article.viewes_count %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
