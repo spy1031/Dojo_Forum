@@ -15,4 +15,10 @@
       
     </tbody>
   </table>
+  <%= form_for @reply do |f|%>
+    <%= f.text_area :content, class: "form-control" %>
+    <br>
+    <%= f.hidden_field :article_id, :value => @article.id %>
+    <%= f.submit "回覆", class: "btn btn-default" %>
+  <% end %>
 </div>

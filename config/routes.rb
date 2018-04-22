@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   end
 
   resources :users
+
+  resources :replies, only: [:create, :delete, :update]
 end
