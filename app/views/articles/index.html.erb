@@ -21,7 +21,7 @@
           <tr>
             <td><%= article.replies_count %></td>
             <td><%= article.title %></td>
-            <td><%= article.last_reply_time %></td>
+            <td><%= article.last_reply_time.to_s[0..15] %></td>
             <td><%= article.viewes_count %></td>
           </tr>
         <% end %>
