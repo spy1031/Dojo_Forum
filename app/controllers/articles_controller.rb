@@ -8,6 +8,11 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def show
+    @article = Article.find(params[:id])
+    @reply = Reply.new
+  end
+
   def create
     @article = current_user.articles.build(article_params)
     @article.last_reply_time = Time.now.localtime
@@ -19,7 +24,7 @@ class ArticlesController < ApplicationController
 
     @article.save!
     flash[:notice] = @article.status ? "成功發布文章" : "成功儲存草稿"
-    redirect_to root_path
+    redirect_to article_path(@article)
   end
 
   private
