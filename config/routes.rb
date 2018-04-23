@@ -8,7 +8,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users do 
+    member do
+      get :articles
+      get :replies
+      get :collects
+      get :drafts
+      get :friends
+    end
+  end
 
   resources :replies, only: [:create, :delete, :update]
 end
