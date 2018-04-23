@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= @user.name%>
+    </div>
+    <div class="col-md-9">
+      <%= @user.introduction%>
+    </div>
+  </div>
+  <br>
+  
+  <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '草稿文章' } %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>標題</th>
+        <th>分類</th>
+        <th>發佈時間</th>
+      </tr>        
+    </thead>
+    <tbody>
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.title %></td>
+          <td><%= article.category.name %></td>
+          <td><%= article.created_at.to_s[0..15] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

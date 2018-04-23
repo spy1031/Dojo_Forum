@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:new]
   before_action :set_article, only: [:show, :destroy]
   def index
-    @articles = Article.page(params[:page]).per(20)
+    @articles = Article.where("status = ?", true).page(params[:page]).per(20)
   end
 
   def new
@@ -19,14 +19,18 @@ class ArticlesController < ApplicationController
     @article = current_user.articles.build(article_params)
     @article.last_reply_time = Time.now.localtime
     if params[:draft]
-      @article.status = 0
+      @article.status = false
+      @article.save!
+      flash[:notice] = "成功儲存草稿"
+      redirect_to drafts_user_path(current_user)
     else
-      @article.status = 1
+      @article.status = true
+      @article.save!
+      flash[:notice] = "成功發布文章"
+      redirect_to article_path(@article)
     end
 
-    @article.save!
-    flash[:notice] = @article.status ? "成功發布文章" : "成功儲存草稿"
-    redirect_to article_path(@article)
+    
   end
 
   def destroy
