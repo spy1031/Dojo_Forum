@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420034750) do
+ActiveRecord::Schema.define(version: 20180423031918) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
     t.integer "authority", null: false
     t.boolean "status"
-    t.integer "viewes_count", default: 0
+    t.integer "views_count", default: 0
     t.integer "replies_count", default: 0
     t.datetime "last_reply_time"
     t.integer "category_id"
