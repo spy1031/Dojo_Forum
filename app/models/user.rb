@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :articles
-  has_many :replies
+  has_many :replies, dependent: :destroy
   has_many :friendships
 
   def admin?
