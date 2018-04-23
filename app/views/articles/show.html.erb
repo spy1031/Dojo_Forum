@@ -9,7 +9,7 @@
         <td>
           <%= filestack_image @article.image, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if @article.image%>
           <%= truncate(simple_format(@article.content), length: 1200)%>
-          <% if current_user == @article.user || current_user.role == "admin" %>
+          <% if current_user == @article.user || current_user.admin? %>
             <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(@article), method: :delete, data:{confirm:"Are you sure>"} %>
           <% end %>
         </td>
@@ -21,7 +21,12 @@
             <%= filestack_image reply.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if reply.user.avatar%>
             <%= reply.user.name %> 
           </td>
-          <td><%= reply.content%></td>
+          <td>
+            <%= truncate(simple_format(reply.content), length: 1200)%>
+            <% if current_user.admin? || current_user == @article.user || current_user == reply.user %>
+            <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
+          <% end %>
+          </td>
         </tr>
       <% end %>
       

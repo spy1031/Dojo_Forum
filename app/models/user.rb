@@ -6,4 +6,8 @@ class User < ApplicationRecord
   has_many :articles
   has_many :replies
   has_many :friendships
+
+  def admin?
+    self.role == "admin"
+  end
 end

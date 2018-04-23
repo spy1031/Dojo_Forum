@@ -18,5 +18,5 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :replies, only: [:create, :delete, :update]
+  resources :replies, only: [:create, :destroy, :update]
 end
