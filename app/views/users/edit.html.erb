@@ -1,0 +1,11 @@
+<div class="container">
+  <%= form_for @user do |f| %>
+    <label>姓名</label>
+    <%= f.text_field :name, class: "form-control" %>
+    <br>
+    <label>自我介紹</label>
+    <%= f.text_area :introduction, class: "form-control" %>
+    <br>
+    <%= f.submit '更新', class: "btn btn-default"%>
+  <% end %>
+</div>
