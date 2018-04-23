@@ -6,6 +6,10 @@
     <label>自我介紹</label>
     <%= f.text_area :introduction, class: "form-control" %>
     <br>
+    <label>照片</label>
+    <%= f.filestack_field :avatar, '上傳照片', class: "btn btn-default" %>
+    <br>
+    <br>
     <%= f.submit '更新', class: "btn btn-default"%>
   <% end %>
 </div>
