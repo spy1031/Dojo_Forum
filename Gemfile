@@ -38,6 +38,9 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'jquery-rails'
 #Use fake to generate test data
 gem 'ffaker'
+#pagination
+gem 'kaminari'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
