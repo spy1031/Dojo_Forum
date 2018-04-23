@@ -41,7 +41,7 @@ class ArticlesController < ApplicationController
       flash[:alert] = "權限不符"
     end
 
-    redirect_back(fallback_location: root_path)
+    redirect_to articles_path
   end
 
   private
