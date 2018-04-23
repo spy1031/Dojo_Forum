@@ -8,6 +8,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    if @user.update(user_params)
+      flash[:notice] = "成功更新個人資料"
+      redirect_to articles_user_path
+    else
+      flash[:alert] = @user.errors.full_messages.to_sentence 
+    end
+  end
+
   def articles
     @articles = @user.articles.where("status = ? ", true)
   end
@@ -20,5 +29,11 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])  
+  end
+
+  def user_params
+    params.require(:user).permit(
+      :name,
+      :introduction)
   end
 end
