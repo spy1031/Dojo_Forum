@@ -8,13 +8,8 @@
     </div>
   </div>
   <br>
-  <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="#">文章列表</a></li>
-    <li role="presentation"><a href="#">回覆列表</a></li>
-    <li role="presentation"><a href="#">收藏文章</a></li>
-    <li role="presentation"><a href="#">收藏文章</a></li>
-    <li role="presentation"><a href="#">好友列表</a></li>
-  </ul>
+  
+  <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '文章列表' } %>
 
   <table class="table">
     <thead>

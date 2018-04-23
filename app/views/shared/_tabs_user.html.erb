@@ -1,0 +1,17 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="<%= 'active' if selected_item == '文章列表' %>">
+    <%= link_to "文章列表", articles_user_path%>
+  </li>
+  <li role="presentation" class="<%= 'active' if selected_item == '回覆列表' %>">
+    <%= link_to "回覆列表", replies_user_path%>
+  </li>
+  <li role="presentation" class="<%= 'active' if selected_item == '收藏列表' %>">
+    <%= link_to "收藏列表", collects_user_path%>
+  </li>
+  <li role="presentation" class="<%= 'active' if selected_item == '草稿文章' %>">
+    <%= link_to "草稿文章", drafts_user_path%>
+  </li>
+  <li role="presentation" class="<%= 'active' if selected_item == '好友列表' %>">
+    <%= link_to "好友列表", friends_user_path%>      
+  </li>
+</ul>
