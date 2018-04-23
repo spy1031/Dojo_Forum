@@ -14,7 +14,10 @@
       
       <% @article.replies.all.each do |reply| %>
         <tr>          
-          <td><%= reply.user.name %></td>
+          <td>
+            <%= image_tag reply.user.avatar, class:"img-responsive img-rounded " if reply.user.avatar%>
+            <%= reply.user.name %> 
+          </td>
           <td><%= reply.content%></td>
         </tr>
       <% end %>
