@@ -7,6 +7,9 @@
     <%= f.text_area :content, class: "form-control"%>
     <br>
 
+    <%= f.filestack_field :image, '上傳照片', class: "btn btn-default" %>
+    <br>
+
     <%= f.label :authority, "觀看權限:" %>
     <%= f.radio_button :authority, 1%>
     <label>所有人</label>

@@ -51,7 +51,8 @@ class ArticlesController < ApplicationController
       :title,
       :content,
       :authority,
-      :category_id)
+      :category_id,
+      :image)
   end
 
   def set_article

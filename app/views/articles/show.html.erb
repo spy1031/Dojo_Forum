@@ -2,12 +2,18 @@
   <table class="table">
     <tbody>
       <tr>
-        <td><%= @article.user.name%></td>
-        <td><%= @article.content%></td>
+        <td>
+          <%= image_tag @article.user.avatar, class:"img-responsive img-rounded " if @article.user.avatar%>
+          <%= @article.user.name%>          
+        </td>
+        <td>
+          <%= image_tag @article.image, class:"img-responsive img-rounded " if @article.image%>
+          <%= @article.content%>
+        </td>
       </tr>
-  
+      
       <% @article.replies.all.each do |reply| %>
-        <tr>
+        <tr>          
           <td><%= reply.user.name %></td>
           <td><%= reply.content%></td>
         </tr>
