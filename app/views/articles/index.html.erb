@@ -10,10 +10,16 @@
   <div class="article_list">
     <table class="table">
       <thead>
-        <th>Replies count</th>
-        <th>Title</th>
-        <th>Last replied at</th>
-        <th>Viewed count</th>
+        <tr>
+          <th>回覆數量</th>
+          <th>標題</th>
+          <th>最後回覆時間</th>
+          <th>瀏覽數量</th>
+          <% if current_user.role == "admin"%>
+            <th>功能</th>
+          <% end %>
+        </tr>
+          
       </thead>
       <tbody>
           
@@ -23,6 +29,9 @@
             <td><%= link_to article.title, article_path(article)%></td>
             <td><%= article.last_reply_time.to_s[0..15] %></td>
             <td><%= article.views_count %></td>
+            <% if current_user.role == "admin"%>
+              <th><%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(article), method: :delete, data:{confirm:"Are you sure>"}%></th>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

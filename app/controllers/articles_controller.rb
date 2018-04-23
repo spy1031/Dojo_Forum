@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:new]
+  before_action :set_article, only: [:show, :destroy]
   def index
     @articles = Article.page(params[:page]).per(20)
   end
@@ -9,7 +10,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
     @article.views_count +=1
     @article.save!
     @reply = Reply.new
@@ -29,6 +29,17 @@ class ArticlesController < ApplicationController
     redirect_to article_path(@article)
   end
 
+  def destroy
+    if current_user.role == "admin" || current_user == @article.user
+      @article.destroy
+      flash[:notice] = "成功刪除貼文"
+    else
+      flash[:alert] = "權限不符"
+    end
+
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def article_params
@@ -37,5 +48,9 @@ class ArticlesController < ApplicationController
       :content,
       :authority,
       :category_id)
+  end
+
+  def set_article
+    @article = Article.find(params[:id])
   end
 end
