@@ -3,9 +3,12 @@
   <head>
     <title>DojoForum</title>
     <%= csrf_meta_tags %>
-
+  
+    <%= filestack_js_include_tag %>
+    <%= filestack_js_init_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
 
   <body>

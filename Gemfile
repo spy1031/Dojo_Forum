@@ -40,6 +40,8 @@ gem 'jquery-rails'
 gem 'ffaker'
 #pagination
 gem 'kaminari'
+#updload image
+gem 'filestack-rails', '~> 3.1.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
