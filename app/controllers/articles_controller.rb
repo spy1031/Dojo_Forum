@@ -10,6 +10,8 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @article.views_count +=1
+    @article.save!
     @reply = Reply.new
   end
 
