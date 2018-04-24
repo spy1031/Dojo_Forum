@@ -18,7 +18,7 @@ class User < ApplicationRecord
     self.role == "admin"
   end
 
-  # 1 repsent friend, 2 represnt wait user agree, 3 represent self agree
+  # 3 repsent friend, 2 represnt wait user agree, 1 represent wait self agree
   def friend?(user)
     if self.friends.include?(user) || self.invers_friends.include?(user) || self == user
       return 3

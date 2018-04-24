@@ -2,7 +2,7 @@
   <table class="table">
     <tbody>
       <tr>
-        <td>
+        <td id="<% @article.user.id %>">
           <%= filestack_image @article.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if @article.user.avatar%>
           <%= link_to @article.user.name, articles_user_path(@article.user)%>
           <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %>       
@@ -41,3 +41,30 @@
     <%= f.submit "回覆", class: "btn btn-default" %>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $(".btn-add-friend").on('click', function(event){
+    var user_id = event.target.id;
+    $.ajax({
+      url: "/friendships",
+      method: "POST",
+      datatype: "json",
+      data: {
+        user_id: user_id
+      },
+      success: function(data){
+        var btn = $(".btn-add-friend");
+        if(data["status"] == 3){
+          $(btn).html("好友");
+          $(btn).prop('disabled', true);
+        }
+        else if(data["status"] == 2){
+          $(btn).html("取消邀請");
+          $(btn).removeClass("btn-add-friend");
+          $(btn).addClass("btn-cancel-invite");
+        }
+        
+      }
+    });
+  });
+</script>
