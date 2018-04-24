@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, except: [:index]
   before_action :set_article, only: [:show, :destroy]
   def index
     @articles = Article.where("status = ?", true).page(params[:page]).per(20)
