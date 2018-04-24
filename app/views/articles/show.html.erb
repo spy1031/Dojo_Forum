@@ -4,7 +4,8 @@
       <tr>
         <td>
           <%= filestack_image @article.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if @article.user.avatar%>
-          <%= link_to @article.user.name, articles_user_path(@article.user)%>          
+          <%= link_to @article.user.name, articles_user_path(@article.user)%>
+          <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %>       
         </td>
         <td>
           <%= filestack_image @article.image, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if @article.image%>
@@ -19,7 +20,8 @@
         <tr>          
           <td>
             <%= filestack_image reply.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if reply.user.avatar%>
-            <%= reply.user.name %> 
+            <%= reply.user.name %>
+            <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %> 
           </td>
           <td>
             <%= truncate(simple_format(reply.content), length: 1200)%>

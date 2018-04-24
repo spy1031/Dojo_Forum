@@ -1,0 +1,8 @@
+<% case current_user.friend?(user) %>
+<% when 0%>
+  <%= link_to "加好友", friendships_path, method: "post",class: "btn btn-success"%>
+<% when 1%>
+  <%= "等待對方同意"%>
+<% when 2%>
+  <%= "同意好友邀請"%>
+<% end %>
