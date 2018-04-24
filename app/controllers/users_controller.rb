@@ -21,6 +21,10 @@ class UsersController < ApplicationController
     @articles = @user.articles.where("status = ? ", true)
   end
 
+  def replies
+    @replies = @user.replies
+  end
+
   def drafts
     @articles = @user.articles.where("status = ? ", false)
   end

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
+  </div>
+  <br>
+  
+  <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '回覆列表' } %>
+
+  <% @replies.each do |reply| %>
+    <div class="col-md-9">
+      <h2><%= link_to reply.article.title, article_path(reply.article) %></h2>
+      <%= truncate(simple_format(reply.content), length: 1200)%>
+    </div>
+    <div class="col-md-3">
+      <% if current_user.admin? || current_user == @article.user || current_user == reply.user %>
+        <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
+      <% end %>
+    </div>
+
+  <% end %>
+</div>
