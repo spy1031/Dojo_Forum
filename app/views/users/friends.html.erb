@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
+  </div>
+  <br>
+  <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '好友列表' } %>
+  <div class="request-block col-md-12">
+    <h2>等待同意名單</h2>
+    <% @user.requests.each do |user| %>
+      <div class="col-md-2">
+        <%= filestack_image user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if user.avatar%>
+        <%= link_to user.name, articles_user_path(user)%>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <div class="invite-block col-md-12">
+    <h2>交友邀請</h2>
+    <% @user.invites.each do |user| %>
+      <div class="col-md-2">
+        <%= filestack_image user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if user.avatar%>
+        <%= link_to user.name, articles_user_path(user)%>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <div class="friend-block col-md-12">
+    <h2>朋友名單</h2>
+    <% @user.friends.each do |user| %>
+      <div class="col-md-2">
+        <%= filestack_image user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if user.avatar%>
+        <%= link_to user.name, articles_user_path(user)%>
+      </div>
+    <% end %>
+  </div>
+</div>
