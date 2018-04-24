@@ -1,0 +1,10 @@
+<ul class="nav nav-pills">
+  <li role="presentation" class="<%= 'active' if selected_item == '所有文章' %>">
+    <%= link_to "所有文章", articles_path%>
+  </li>
+  <% Category.all.each do |category| %>
+    <li role="presentation" class="<%= 'active' if selected_item == category.name %>">
+      <%= link_to category.name, category_path(category)%>
+    </li>
+  <% end %>
+</ul>
