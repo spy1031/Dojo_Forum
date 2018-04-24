@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :friendships, ->{where status: 3}, dependent: :destroy
   has_many :friends, through: :friendships
   has_many :inverse_friendships, ->{where status: 3}, class_name: "Friendship", foreign_key: "friend_id"
-  has_many :invers_friends, through: :inverse_friendships, source: :user
+  has_many :inverse_friends, through: :inverse_friendships, source: :user
 
   has_many :friend_requests, ->{where status: 2}, class_name: "Friendship", dependent: :destroy
   has_many :requests, through: :friend_requests, source: :friend
@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   # 3 repsent friend, 2 represnt wait user agree, 1 represent wait self agree
   def friend?(user)
-    if self.friends.include?(user) || self.invers_friends.include?(user) || self == user
+    if self.friends.include?(user) || self.inverse_friends.include?(user) || self == user
       return 3
     elsif self.requests.include?(user)
       return 2

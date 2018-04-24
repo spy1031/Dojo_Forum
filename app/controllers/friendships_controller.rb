@@ -1,4 +1,13 @@
 class FriendshipsController < ApplicationController
+  def update
+    @user = User.find(params[:id])
+    @friendship = current_user.friend_invites.find_by(user_id: @user.id)
+    @friendship.status = params[:status]
+    @friendship.save!
+
+    render :json => {:user_id => @user.id}
+  end
+
   def create
     @user = User.find(params[:user_id])
     case current_user.friend?(@use)
@@ -7,7 +16,7 @@ class FriendshipsController < ApplicationController
     when 2
 
     when 1
-      @friendship = @user.friend_request.find(friend_id: current_user)
+      @friendship = @user.friend_request.find_by(friend_id: current_user)
       @friendship.status = 3
       @friendship.save!
       render :json => {status: 3}
