@@ -65,5 +65,21 @@
       }
     });
   });
+
+  $(".btn-ignore-invite").on('click', function(event){
+    var user_id = event.target.parentNode.id;
+    $.ajax({
+      url: "/friendships/"+user_id,
+      method: "PATCH",
+      data: {
+        status: -1
+      },
+      datatype: "json",
+      success: function(data){
+        $(".invite-block").find("#"+data["user_id"]).remove();
+        
+      }
+    });
+  });
 </script>
 
