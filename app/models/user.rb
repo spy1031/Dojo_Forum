@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :articles
+  has_many :collections
   has_many :replies, dependent: :destroy
   has_many :friendships, ->{where status: 3}, dependent: :destroy
   has_many :friends, through: :friendships
