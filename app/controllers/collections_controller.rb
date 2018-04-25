@@ -9,6 +9,6 @@ class CollectionsController < ApplicationController
     @collection = Collection.find(params[:id])
     @article_id = @collection.article_id
     @collection.destroy
-    
+    render :json => {article_id: @article_id}
   end
 end

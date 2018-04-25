@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
+  </div>
+  <br>
+  
+  <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '收藏列表' } %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>標題</th>
+        <th>功能</th>
+      </tr>        
+    </thead>
+    <tbody class="collection-list">
+      <% @collections.each do |collection| %>
+        <tr id="<%= collection.article.id %>">
+          <td><%= link_to collection.article.title, article_path(collection.article) %></td>
+          <td>
+            <button class="uncollect btn btn-default" id="<%= collection.id%>">
+              取消收藏
+            </button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  $(".uncollect").on('click', function(event){
+    var collection_id = event.target.id;
+    $.ajax({
+      url: "/collections/" + collection_id,
+      method: "DELETE",
+      datatype: "json",
+      success: function(data){
+        $(".collection-list").find("#"+data["article_id"]).remove();   
+      }
+    });
+  });
+</script>

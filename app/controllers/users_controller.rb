@@ -25,6 +25,10 @@ class UsersController < ApplicationController
     @replies = @user.replies
   end
 
+  def collects
+    @collections = @user.collections
+  end
+
   def drafts
     @articles = @user.articles.where("status = ? ", false)
   end
