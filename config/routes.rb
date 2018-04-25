@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resources :replies, only: [:create, :destroy, :update]
   resources :categories, only: [:show]
   resources :friendships
+  resources :collections, only: [:create, :destroy]
 end
