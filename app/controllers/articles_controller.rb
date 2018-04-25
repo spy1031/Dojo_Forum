@@ -12,6 +12,7 @@ class ArticlesController < ApplicationController
   def show
     @article.views_count +=1
     @article.save!
+    @collection = current_user.collections.find_by(article_id: @article.id)
     @reply = Reply.new
   end
 

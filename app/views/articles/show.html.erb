@@ -6,8 +6,21 @@
         <h1><%= @article.title%></h1>
       </div>
       <div class="text-right">
-        <button class="collect-btn btn btn-default" id="<%= @article.id%>">收藏</button>
-        <button class="go-reply btn btn-default">新增回覆</button>
+        <div class="article-btn-group" id="<%= @article.id %>">
+          <% if current_user.collector?(@article) %>
+            <button class="uncollect btn btn-default" id="<%= @collection.id%>">
+              取消收藏
+            </button>
+          <% else%>
+            <button class="collect btn btn-default" >
+              收藏
+            </button>
+          <% end %>
+
+          <button class="go-reply btn btn-default">新增回覆</button>
+        </div>
+          
+        
       </div>
     </div>
     <div class="row">
@@ -86,8 +99,8 @@
     });
   });
 
-  $(".collect-btn").on('click', function(event){
-    var article_id = event.target.id;
+  $(".article-btn-group").on('click', '.collect', function(event){
+    var article_id = event.target.parentNode.id;
     $.ajax({
       url: "/collections/",
       method: "POST",
@@ -96,11 +109,27 @@
         article_id: article_id
       },
       success: function(data){
-        var btn = $(".collect-btn");
-        $(btn).html("取消收藏");
-        $(btn).removeClass("collect-btn");
-        $(btn).addClass("uncollet-btn");
+        var btn = $('<button class="uncollect btn btn-default" >取消收藏</button>');
+        $(".article-btn-group").find(".collect").remove();
+        $(btn).attr('id', data["collection_id"]);
+        $(".article-btn-group").prepend(btn);
+      }
+    });
+  });
+
+  $(".article-btn-group").on('click', '.uncollect', function(event){
+    var collection_id = event.target.id;
+    $.ajax({
+      url: "/collections/" + collection_id,
+      method: "DELETE",
+      datatype: "json",
+      success: function(data){
+        var btn = $('<button class="collect btn btn-default" >收藏</button>');
+        $(".article-btn-group").find(".uncollect").remove();   
+
+        $(".article-btn-group").prepend(btn);
       }
     });
   });
 </script>
+
