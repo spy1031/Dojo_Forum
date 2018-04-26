@@ -1,0 +1,29 @@
+<div class="container">
+  <%= render :partial => "shared/tabs_admin_user", :locals => {selected_item: "使用者列表"} %>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>信箱</th>
+        <th>權限</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user|%>
+        <tr>
+          <td><%= user.name%></td>
+          <td><%= user.email%></td>
+          <td>
+            <%= form_for [:admin,user] do |f|%>
+              <%= f.select :role, options_for_select([['normal', "normal"],['admin', "admin"]], :selected => user.role) %>
+              <%= f.submit %>
+            <% end %>
+           
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
