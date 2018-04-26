@@ -18,7 +18,7 @@
           <td>
             <%= form_for [:admin,user] do |f|%>
               <%= f.select :role, options_for_select([['normal', "normal"],['admin', "admin"]], :selected => user.role) %>
-              <%= f.submit %>
+              <%= f.submit "更新權限", class: "btn btn-success"%>
             <% end %>
            
           </td>
