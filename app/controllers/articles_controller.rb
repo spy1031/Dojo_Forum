@@ -50,6 +50,8 @@ class ArticlesController < ApplicationController
     @article_count = Article.count
     @reply_count = Reply.count
 
+    @ranked_users = User.order(replies_count: :desc).limit(10)
+    @ranked_articles = Article.order(replies_count: :desc).limit(10)
   end
 
   private

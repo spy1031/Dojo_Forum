@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="user-count col-md-4 text-center">
+      <h4>使用者</h4>
+      <h3><%= @user_count%></h3>
+    </div>
+    <div class="post-count col-md-4 text-center">
+      <h4>貼文</h4>
+      <h3><%= @article_count%></h3>
+    </div>
+    <div class="reply-count col-md-4 text-center">
+      <h4>回覆</h4>
+      <h3><%= @reply_count%></h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">回覆排行</div>
+        
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>姓名</th>
+              <th>回覆數</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @ranked_users.each do |user|%>
+              <tr>
+                <td><%= link_to user.name, articles_user_path(user) %></td>
+                <td><%= user.replies_count %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+          
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">最受歡迎貼文</div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>標題</th>
+              <th>發佈時間</th>
+              <th>回覆數</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @ranked_articles.each do |article|%>
+              <tr>
+                <td><%= link_to article.title, article_path(article) %></td>
+                <td><%= article.created_at.to_s[0..9] %></td>
+                <td><%= article.replies_count %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
