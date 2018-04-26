@@ -19,7 +19,11 @@
           <td><%= category.name%></td>
           <td>
             <button class="btn btn-edit">編輯</button>
-            <button class="btn btn-delete">刪除</button>
+            <% if category.articles.count == 0 %>
+              <%= link_to "刪除", admin_category_path(category), method: :delete%>
+            <% else %>
+              無法刪除
+            <% end %>
           </td>
         </tr>
       <% end %>

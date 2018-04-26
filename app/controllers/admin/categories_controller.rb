@@ -10,6 +10,15 @@ class Admin::CategoriesController < ApplicationController
     redirect_to admin_root_path
   end
 
+  def destroy
+    @category = Category.find(params[:id])
+    if @category.articles.count == 0
+      @category.destroy
+      flash[:notice] = "成功刪除文章分類"
+      redirect_to admin_root_path
+    end
+  end
+
   private
 
   def category_params
