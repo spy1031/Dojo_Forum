@@ -10,6 +10,12 @@ class Admin::CategoriesController < ApplicationController
     redirect_to admin_root_path
   end
 
+  def update
+    @category = Category.find(params[:id])
+    @category.update(name: params[:category_name])
+    render :json => {:id => @category.id, :name => @category.name}
+  end
+
   def destroy
     @category = Category.find(params[:id])
     if @category.articles.count == 0

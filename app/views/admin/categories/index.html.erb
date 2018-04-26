@@ -13,11 +13,12 @@
         <th>功能</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="category-list">
+
       <% @categories.each do |category|%>
-        <tr>
-          <td><%= category.name%></td>
-          <td>
+        <tr id="<%= category.id%>">
+          <td class="category-name"><%= category.name%></td>
+          <td class="btn-control">
             <button class="btn btn-edit">編輯</button>
             <% if category.articles.count == 0 %>
               <%= link_to "刪除", admin_category_path(category), method: :delete%>
@@ -30,3 +31,43 @@
     </tbody>
   </table>
 </div>
+
+
+<script type="text/javascript">
+  
+  $(".btn-control").on('click', '.btn-edit', function(event){
+    var block = event.target.parentNode.parentNode;
+    var input = $('<input type="text" name="" class="input-name">');
+    var btn = $('<button class="btn btn-update">更新</button>')
+    var origin_name = $(block).find(".category-name").html();
+    $(input).val(origin_name);
+    $(block).find(".category-name").html(input);
+    $(block).find(".btn-edit").remove();
+    $(block).find(".btn-control").prepend(btn);
+    
+
+  });
+
+  $(".btn-control").on('click', '.btn-update', function(event){
+    var block = event.target.parentNode.parentNode;
+    var category_id = block.id;
+    var category_name = $(block).find(".input-name").val();
+    
+    $.ajax({
+      url: "/admin/categories/" + category_id,
+      method: "PATCH",
+      datatype: "json",
+      data: {
+        category_name: category_name
+      },
+      success: function(data){
+        var block = $(".category-list").find("#"+data["id"]);
+        var btn = $('<button class="btn btn-edit">編輯</button>')
+        $(block).find(".category-name").html(data["name"]);
+        $(block).find(".btn-update").remove();
+        $(block).find(".btn-control").prepend(btn);
+      }
+    })
+  });
+  
+</script>
