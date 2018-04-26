@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180425042825) do
+ActiveRecord::Schema.define(version: 20180426073723) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title", null: false
@@ -80,7 +80,9 @@ ActiveRecord::Schema.define(version: 20180425042825) do
     t.string "introduction"
     t.string "gender"
     t.string "avatar"
+    t.integer "replies_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["replies_count"], name: "index_users_on_replies_count"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

@@ -45,6 +45,13 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
   end
 
+  def feeds
+    @user_count = User.count 
+    @article_count = Article.count
+    @reply_count = Reply.count
+
+  end
+
   private
 
   def article_params
