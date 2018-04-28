@@ -1,12 +1,13 @@
 <div class="container">
   
   <div class="article-block">
+    
     <div class="row">
-      <div class="col-md-3 article-title">
-        <h1><%= @article.title%></h1>
-      </div>
-      <div class="text-right">
-        <div class="article-btn-group" id="<%= @article.id %>">
+      <div class="title-block">
+        
+        <h1 class="article-title"><%= @article.title%></h1>
+      
+        <div class="article-btn-group " id="<%= @article.id %>">
           <% if current_user.collector?(@article) %>
             <button class="uncollect btn btn-default" id="<%= @collection.id%>">
               取消收藏
@@ -19,25 +20,31 @@
 
           <button class="go-reply btn btn-default">新增回覆</button>
         </div>
-          
-        
       </div>
     </div>
+
     <div class="row">
-      <div class="col-md-3" id="<% @article.user.id %>">
-        <%= filestack_image @article.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if @article.user.avatar%>
-        <%= link_to @article.user.name, articles_user_path(@article.user)%>
-        <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %>   
+      <div class="article-content-block">
+        <div class="avatar-block col-md-2" id="<% @article.user.id %>">
+          <% if @article.user.avatar %>
+            <%= filestack_image @article.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded "%>
+          <% else %>
+            <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
+          <% end %>
+          <p><%= link_to @article.user.name, articles_user_path(@article.user)%></p>
+          <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %>   
+        </div>
+        <div class="text-content col-md-10">
+          <%= image_tag @article.image, class:"img-responsive img-rounded " if @article.image && @article.image != "" %>
+          <p><%= @article.content %></p>
+        </div>
+        <div class="btn-control-group text-right">
+          <% if current_user == @article.user || current_user.admin? %>
+            <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(@article), method: :delete, data:{confirm:"Are you sure>"}%>
+          <% end %>
+        </div>
       </div>
-      <div class="article-content col-md-9">
-      <%= filestack_image @article.image, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if @article.image%>
-      <%= truncate(simple_format(@article.content), length: 1200)%>
-      <div class="btn-control-group text-right">
-        <% if current_user == @article.user || current_user.admin? %>
-          <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(@article), method: :delete, data:{confirm:"Are you sure>"}%>
-        <% end %>
-      </div>
-    </div>
+        
       
         
     </div>
@@ -45,33 +52,40 @@
   </div>
    
   <div class="reply-list">
-    <div class="reply-bolck ">
-      <% @article.replies.all.each do |reply| %>
-        <div class="row">
-          <div class="col-md-3" id="<%= reply.id%>">
-            <%= filestack_image reply.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if reply.user.avatar%>
-            <%= reply.user.name %>
-            <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %> 
+    <% @article.replies.all.each do |reply| %>
+      <div class="row">
+        <div class="reply-content-block ">
+          <div class="avatar-block col-md-2" id="<%= reply.id%>">
+            <% if @article.user.avatar %>
+              <%= filestack_image @article.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded "%>
+            <% else %>
+              <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
+            <% end %>
+            <p><%= link_to @article.user.name, articles_user_path(@article.user)%></p>
+            <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %>  
           </div>
-          <div class="reply-coneten col-md-9">
-            <%= truncate(simple_format(reply.content), length: 1200)%>
-            <div class="btn-control-group text-right">
-              <% if current_user.admin? || current_user == @article.user || current_user == reply.user %>
-              <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
-              <% end %>
-            </div>
+
+          <div class="text-content col-md-10">
+            <p><%= reply.content %></p>
+          </div>
+          <div class="btn-control-group text-right">
+            <% if current_user.admin? || current_user == @article.user || current_user == reply.user %>
+            <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
+            <% end %>
           </div>
         </div>        
-      <% end %>
-    </div>
+      </div>
+    <% end %>  
   </div> 
-
-  <%= form_for @reply do |f|%>
-    <%= f.text_area :content, class: "form-control" %>
-    <br>
-    <%= f.hidden_field :article_id, :value => @article.id %>
-    <%= f.submit "回覆", class: "btn btn-default" %>
-  <% end %>
+  <div class="reply-form">
+    <%= form_for @reply do |f|%>
+      <%= f.text_area :content, class: "form-control" %>
+      <br>
+      <%= f.hidden_field :article_id, :value => @article.id %>
+      <%= f.submit "回覆", class: "btn btn-default" %>
+    <% end %>
+  </div>
+    
 </div>
 
 <script type="text/javascript">

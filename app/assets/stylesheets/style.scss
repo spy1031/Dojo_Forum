@@ -69,3 +69,82 @@ h2.header-font {
   border: 1px;
   border-color: #FFD700;
 }
+
+/*======================= article-show-page =======================*/
+
+.title-block {
+  background-color: #008B8B;
+  margin: 15px 0px;
+}
+
+h1.article-title {
+  display: inline-block;
+  color: white;
+  font-size: 28px; 
+  margin: 20px;
+}
+
+div.article-btn-group {
+  margin: 20px;
+  float: right;
+}
+
+.article-content-block {
+  border-style: solid;
+  border-size: 4px;
+  border-color: #008B8B;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.avatar-block {
+  
+  text-align: center;
+  
+}
+
+.avatar-block img {
+  margin: 10px 0px;
+}
+
+.avatar-block p {
+  
+}
+
+.avatar-block button{
+  margin-bottom: 10px;
+  background-color: #008B8B;
+  color: white;
+}
+
+.text-content {
+  padding: 10px 8px;
+  margin-bottom: 15px;
+  height: 100%;
+  text-align: left;
+  font-size: 24px;
+}
+
+.btn-control-group {
+  position: absolute;
+  margin: 10px;
+  bottom: 0;
+  right: 0;
+  font-size: 20px;
+}
+
+.reply-content-block {
+  border-style: solid;
+  border-size: 4px;
+  border-color: #DAA520;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.reply-form {
+  margin: 5px 0px 20px;
+}

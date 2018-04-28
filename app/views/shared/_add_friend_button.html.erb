@@ -1,8 +1,8 @@
 <% case current_user.friend?(user) %>
 <% when 0%>
-  <button class="btn btn-success btn-add-friend" id="<%=user.id%>">加好友</button>
+  <button class="btn btn-add-friend" id="<%=user.id%>">加好友</button>
 <% when 1%>
-  <button class="btn btn-success">test</button>
+  <button class="btn"></button>
 <% when 2%>
-  <button class="btn btn-success">取消邀請</button>
+  <button class="btn">取消邀請</button>
 <% end %>
