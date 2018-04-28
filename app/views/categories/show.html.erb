@@ -1,10 +1,4 @@
-<div class="header">
-  
-  <div class="container">
-    <h2>Site Name</h2>
-  </div>
-  
-</div>
+<%= render :partial => "shared/cover_articles"%>
 
 <div class="container">
   <%= render :partial => "shared/pills_category", :locals => {:selected_item => @category.name}%>
