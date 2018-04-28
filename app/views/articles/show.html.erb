@@ -79,7 +79,7 @@
   </div> 
   <div class="reply-form">
     <%= form_for @reply do |f|%>
-      <%= f.text_area :content, class: "form-control" %>
+      <%= f.text_area :content, class: "form-control input-text" %>
       <br>
       <%= f.hidden_field :article_id, :value => @article.id %>
       <%= f.submit "回覆", class: "btn btn-default" %>
@@ -89,6 +89,8 @@
 </div>
 
 <script type="text/javascript">
+  
+  //送出好友邀請
   $(".btn-add-friend").on('click', function(event){
     var user_id = event.target.id;
     $.ajax({
@@ -114,6 +116,7 @@
     });
   });
 
+  //收藏文章
   $(".article-btn-group").on('click', '.collect', function(event){
     var article_id = event.target.parentNode.id;
     $.ajax({
@@ -132,6 +135,7 @@
     });
   });
 
+  //取消收藏
   $(".article-btn-group").on('click', '.uncollect', function(event){
     var collection_id = event.target.id;
     $.ajax({
@@ -145,6 +149,13 @@
         $(".article-btn-group").prepend(btn);
       }
     });
+  });
+
+  //跳到回覆框
+  $(".go-reply").on('click', function(){
+    var reply = $(".reply-form").find(".input-text");
+    reply.focus();
+    reply.select;
   });
 </script>
 
