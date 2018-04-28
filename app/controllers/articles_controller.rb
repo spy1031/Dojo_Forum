@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_article, only: [:show, :edit, :destroy]
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
   def index
     @articles = Article.where("status = ?", true).page(params[:page]).per(20)
   end
@@ -35,7 +35,22 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    
+    if current_user != @article.user
+      redirect_to root_path
+    end
+  end
+
+  def update
+    if current_user != @article.user
+      redirect_to root_path
+    end
+
+    if @article.update(article_params)
+      flash[:notice] = "成功更新文章"
+      redirect_to article_path(@article)
+    else
+      flash[:alert] = @article.errors.full_messages.to_sentence 
+    end
   end
 
   def destroy
