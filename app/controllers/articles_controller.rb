@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_article, only: [:show, :destroy]
+  before_action :set_article, only: [:show, :edit, :destroy]
   def index
     @articles = Article.where("status = ?", true).page(params[:page]).per(20)
   end
@@ -31,6 +31,10 @@ class ArticlesController < ApplicationController
       redirect_to article_path(@article)
     end
 
+    
+  end
+
+  def edit
     
   end
 

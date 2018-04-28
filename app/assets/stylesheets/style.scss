@@ -121,7 +121,7 @@ div.article-btn-group {
 
 .text-content {
   padding: 10px 8px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   height: 100%;
   text-align: left;
   font-size: 24px;
@@ -133,6 +133,15 @@ div.article-btn-group {
   bottom: 0;
   right: 0;
   font-size: 20px;
+}
+
+.btn-control-group i{
+  margin: 0px 5px;
+  padding: 5px;
+  border-style: solid;
+  border-size: 4px;
+  border-color: #008B8B;
+  border-radius: 2px;
 }
 
 .reply-content-block {

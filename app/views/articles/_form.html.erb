@@ -1,0 +1,40 @@
+<div class="container">
+  <%= form_for article do |f|%>
+    <%= f.label :title, "Title" %>
+    <%= f.text_field :title, class: "form-control"%>
+
+    <%= f.label :content, "Content" %>
+    <%= f.text_area :content, class: "form-control"%>
+    <br>
+      
+    <%= f.filestack_field :image, '上傳照片', class: "btn btn-default" %>
+    <%= image_tag article.image, class:"img-responsive img-rounded " if article.image && article.image != "" %>
+    <br>
+
+    <%= f.label :authority, "觀看權限:" %>
+    <%= f.radio_button :authority, 1%>
+    <label>所有人</label>
+    <%= f.radio_button :authority, 2%>
+    <label>朋友</label>
+    <%= f.radio_button :authority, 3%>
+    <label>自己</label>
+    <br>
+
+    <label>文章分類:</label>
+
+    <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: false} %>
+
+    <br>
+    <% if article.status == false%>
+      <label>文章狀態: 草稿</label>
+    <% elsif article.status == true%>
+      <label>文章狀態: 已發布</label>
+    <% else %>
+      <label>文章狀態: 未儲存</label>
+    <% end %>
+    <br>
+    <br>
+    <input type="submit" class="btn-default" name="draft" value="儲存草稿">
+    <input type="submit" class="btn-primary" name="sumit" value="發佈">
+  <% end %>
+</div>
