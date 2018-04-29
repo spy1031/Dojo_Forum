@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row user-info-block">
     <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
   </div>
   <br>
@@ -9,7 +9,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>標題</th>
+        <th class="th-text">標題</th>
         <th>分類</th>
         <th>發佈時間</th>
       </tr>        
@@ -17,7 +17,7 @@
     <tbody>
       <% @articles.each do |article| %>
         <tr>
-          <td><%= article.title %></td>
+          <td class="td-text"><%= link_to article.title, article_path(article) %></td>
           <td><%= article.category.name %></td>
           <td><%= article.created_at.to_s[0..15] %></td>
         </tr>

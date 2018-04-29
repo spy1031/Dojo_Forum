@@ -143,12 +143,13 @@ div.article-btn-group {
 
 .reply-content-block {
   border-style: solid;
-  border-size: 4px;
-  border-color: #DAA520;
+  border-size: 3px;
+  border-color: gray;
   text-align: center;
   display: inline-block;
   width: 100%;
   position: relative;
+  margin: 4px 0px;
 }
 
 .reply-form {
@@ -193,3 +194,16 @@ h3.num {
   margin: 0 5%;
 }
 
+/*======================= user-profile-page =======================*/
+
+.user-info-block {
+  position: relative;
+}
+
+.reply-content-block form {
+  width: 80%;
+}
+
+i.reply-edit-btn:hover, i.reply-update-btn:hover{
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 class RepliesController < ApplicationController
-  before_action :set_reply, only: [:destroy]
+  before_action :set_reply, only: [:update, :destroy]
   def create
     @reply = current_user.replies.build(reply_params)
     @reply.save!
@@ -12,6 +12,12 @@ class RepliesController < ApplicationController
       flash[:alert] = "成功刪除回覆"
       redirect_back(fallback_location: root_path)
     end
+  end
+
+  def update
+    @reply.content = params[:content]
+    @reply.save!
+    render :json => { :reply_id => @reply.id }
   end
 
   private

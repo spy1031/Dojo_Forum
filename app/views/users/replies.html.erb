@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row user-info-block">
     <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
   </div>
   <br>
@@ -7,15 +7,58 @@
   <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '回覆列表' } %>
 
   <% @replies.each do |reply| %>
-    <div class="col-md-9">
-      <h2><%= link_to reply.article.title, article_path(reply.article) %></h2>
-      <%= truncate(simple_format(reply.content), length: 1200)%>
+    <div class="row">
+      <div class="reply-content-block" id="<%= reply.id %>">
+        <div class="text-content">
+          <h1 class="article-title"><%= link_to reply.article.title, article_path(reply.article) %></h1>
+          <%= form_for reply do |f| %>
+            <%= f.text_area :content , class: "form-control", disabled: "disabled"%>
+          <% end %>
+        </div>
+        <div class="btn-control-group text-right" >
+          <% if current_user.admin?  || current_user == reply.user %>
+            <i class = "glyphicon glyphicon-pencil reply-edit-btn" aria-hidden="true"></i>
+      
+            <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div class="col-md-3">
-      <% if current_user.admin? || current_user == @article.user || current_user == reply.user %>
-        <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
-      <% end %>
-    </div>
-
   <% end %>
 </div>
+
+<script type="text/javascript">
+  
+  //點選修改回覆
+  $(".btn-control-group").on('click', '.reply-edit-btn', function(event){
+    var block = event.target.parentNode.parentNode;
+    var btn = $('<i class = "glyphicon glyphicon-upload reply-update-btn" aria-hidden="true"></i>');
+    $(block).find("textarea").prop('disabled', false);
+    $(block).find(".btn-control-group").find(".reply-edit-btn").remove();
+    $(block).find(".btn-control-group").prepend(btn);
+  
+  });
+
+  //更新回覆
+  $(".btn-control-group").on('click', '.reply-update-btn', function(event){
+    var block = event.target.parentNode.parentNode;
+    var reply_id = block.id;
+    var input = $(block).find("textarea").val();
+
+    $.ajax({
+      url: "/replies/" + reply_id,
+      method: "PATCH",
+      datatype: "json",
+      data: {
+        content: input
+      },
+      success: function(data){
+        var btn = $('<i class = "glyphicon glyphicon-pencil reply-edit-btn" aria-hidden="true"></i>');
+        var block = $("#" + data["reply_id"]);
+        $(block).find("textarea").prop('disabled', true);
+        $(block).find(".btn-control-group").find(".reply-update-btn").remove();
+        $(block).find(".btn-control-group").prepend(btn);
+      }
+    });
+  });
+</script>
