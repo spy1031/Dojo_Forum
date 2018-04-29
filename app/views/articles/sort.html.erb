@@ -1,0 +1,70 @@
+<%= render :partial => "shared/cover_articles"%>
+<div class="container">
+  <% if @category %>
+    <%= render :partial => "shared/pills_category", :locals => {:selected_item => @category.name}%>
+  <% else %>
+    <%= render :partial => "shared/pills_category", :locals => {:selected_item => '所有文章'}%>
+  <% end %>
+  <br>
+  <div class="article_list">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="btn-sort">
+            <% if @attr == "replies_count"%>
+              <%= link_to '回覆數量<i class="glyphicon glyphicon-triangle-bottom" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "replies_count", order: "desc", category_id: @category) if @order == "asc"%>
+              <%= link_to '回覆數量<i class="glyphicon glyphicon-triangle-top" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "replies_count", order: "asc", category_id: @category) if @order == "desc"%>
+            <% else %>
+              <%= link_to '回覆數量<i class="glyphicon glyphicon-sort" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "replies_count", order: "desc", category_id: @category) %>        
+            <% end %>    
+          </th>
+          <th class="th-text">標題</th>
+          <th class="th-time btn-sort">            
+            <% if @attr == "last_reply_time"%>
+              <%= link_to '最後回覆時間<i class="glyphicon glyphicon-triangle-bottom" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "last_reply_time", order: "desc", category_id: @category) if @order == "asc"%>
+              <%= link_to '最後回覆時間<i class="glyphicon glyphicon-triangle-top" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "last_reply_time", order: "asc", category_id: @category) if @order == "desc"%>
+            <% else %>
+              <%= link_to '最後回覆時間<i class="glyphicon glyphicon-sort" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "last_reply_time", order: "desc", category_id: @category) %>        
+            <% end %>   
+          </th>
+          <th class="btn-sort">            
+            <% if @attr == "views_count"%>
+              <%= link_to '瀏覽數量<i class="glyphicon glyphicon-triangle-bottom" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "views_count", order: "desc", category_id: @category) if @order == "asc"%>
+              <%= link_to '瀏覽數量<i class="glyphicon glyphicon-triangle-top" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "views_count", order: "asc", category_id: @category) if @order == "desc"%>
+            <% else %>
+              <%= link_to '瀏覽數量<i class="glyphicon glyphicon-sort" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "views_count", order: "desc", category_id: @category) %>        
+            <% end %>    
+          </th>
+          <% if current_user && current_user.role == "admin"%>
+            <th>功能</th>
+          <% end %>
+        </tr>
+          
+      </thead>
+      <tbody>
+          
+        <% @articles.each do |article|%>
+          <tr>
+            <td class="td-num" >
+              <span ><%= article.replies_count %></span>            
+            </td>
+            <td class="td-text"><%= link_to article.title, article_path(article)%></td>
+            <td class="td-time"><%= article.last_reply_time.to_s[0..9] %></td>
+            <td class="td-num">
+              <i class = "glyphicon glyphicon-eye-open" aria-hidden="true"></i>
+              <%= article.views_count %>
+            </td>
+            <% if current_user && current_user.role == "admin"%>
+              <th><%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(article), method: :delete, data:{confirm:"Are you sure>"}%></th>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+      
+  </div>
+  <div class="text-center">
+    <%= paginate @articles %> 
+  </div>
+  
+</div>

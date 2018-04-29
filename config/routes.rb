@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :articles do
     collection do
       get :feeds
+      get :sort
     end
   end
 

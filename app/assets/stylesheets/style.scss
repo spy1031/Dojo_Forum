@@ -30,22 +30,17 @@ td.td-text {
 }
 
 td.td-time {
-  text-align: right;
+  text-align: center;
 }
 
 td.td-num {
   width: 15%;
 }
 
-span.block-gray {
-  background-color: #F5F5F5;
-  border: 1px;
-  border-color: #C0C0C0;
-  border-style: solid;
-  
-  padding: 4px 24px 4px;
+.btn-sort a:hover {
+  color: #DAA520; 
+  cursor: pointer;
 }
-
 /*======================= index-article-cover =======================*/
 
 .cover-block {

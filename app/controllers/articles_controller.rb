@@ -30,8 +30,6 @@ class ArticlesController < ApplicationController
       flash[:notice] = "成功發布文章"
       redirect_to article_path(@article)
     end
-
-    
   end
 
   def edit
@@ -71,6 +69,18 @@ class ArticlesController < ApplicationController
 
     @ranked_users = User.order(replies_count: :desc).limit(10)
     @ranked_articles = Article.order(replies_count: :desc).limit(10)
+  end
+
+  def sort
+    @attr = params[:attr]
+    @order = params[:order]
+    if params[:category_id]
+      @category_id = params[:category_id]
+      @category = Category.find(@category_id)
+      @articles = Article.where("status = ? AND category_id = ? ", true, @category_id).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
+    else
+      @articles = Article.where("status =? ", true).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
+    end
   end
 
   private

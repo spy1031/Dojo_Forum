@@ -6,10 +6,16 @@
     <table class="table">
       <thead>
         <tr>
-          <th>回覆數量</th>
+          <th class="btn-sort">            
+            <%= link_to '回覆數量<i class="glyphicon glyphicon-sort" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "replies_count", order: "desc") %>    
+          </th>
           <th class="th-text">標題</th>
-          <th class="th-time">最後回覆時間</th>
-          <th>瀏覽數量</th>
+          <th class="th-time btn-sort">            
+            <%= link_to '最後回覆時間<i class="glyphicon glyphicon-sort" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "last_reply_time", order: "desc") %>  
+          </th>
+          <th class="btn-sort">            
+            <%= link_to '瀏覽數量<i class="glyphicon glyphicon-sort" aria-hidden="true></i> "'.html_safe, sort_articles_path(attr: "views_count", order: "desc") %> 
+          </th>
           <% if current_user && current_user.role == "admin"%>
             <th>功能</th>
           <% end %>
