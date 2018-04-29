@@ -15,9 +15,11 @@ class RepliesController < ApplicationController
   end
 
   def update
-    @reply.content = params[:content]
-    @reply.save!
-    render :json => { :reply_id => @reply.id }
+    if  @reply.user == current_user 
+      @reply.content = params[:content]
+      @reply.save!
+      render :json => { :reply_id => @reply.id }
+    end
   end
 
   private

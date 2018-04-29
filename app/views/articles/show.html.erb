@@ -55,23 +55,24 @@
   <div class="reply-list">
     <% @article.replies.all.each do |reply| %>
       <div class="row">
-        <div class="reply-content-block ">
-          <div class="avatar-block col-md-2" id="<%= reply.id%>">
+        <div class="reply-content-block " id="<%= reply.id%>">
+          <div class="avatar-block col-md-2" ">
             <% if @article.user.avatar %>
               <%= filestack_image @article.user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded "%>
             <% else %>
               <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
             <% end %>
-            <p><%= link_to @article.user.name, articles_user_path(@article.user)%></p>
+            <p><%= link_to reply.user.name, articles_user_path(@article.user)%></p>
             <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %>  
           </div>
 
           <div class="text-content col-md-10">
+            <textarea style="display: none;" name="" class="form-control" value=""><%= reply.content %></textarea> 
             <p><%= simple_format(reply.content) %></p>
           </div>
           <div class="btn-control-group text-right">
-            <i class = "glyphicon glyphicon-pencil reply-edit-btn" aria-hidden="true"></i>
             <% if current_user.admin? || current_user == @article.user || current_user == reply.user %>
+              <i class = "glyphicon glyphicon-pencil reply-edit-btn" aria-hidden="true"></i>
               <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
             <% end %>
           </div>
@@ -159,5 +160,62 @@
     reply.focus();
     reply.select;
   });
+
+  //點選修改回覆
+  $(".btn-control-group").on('click', '.reply-edit-btn', function(event){
+    var block = event.target.parentNode.parentNode;
+    var btn = $('<i class = "glyphicon glyphicon-upload reply-update-btn" aria-hidden="true"></i>');
+    var text = $(block).find(".text-content").find("textarea").val();
+    
+    $(block).find(".text-content").find("textarea").show();
+    $(block).find(".text-content").find("p").remove();
+    $(block).find(".btn-control-group").find(".reply-edit-btn").remove();
+    $(block).find(".btn-control-group").prepend(btn);
+    
+    console.log(text);
+  });
+
+  //更新回覆
+  $(".btn-control-group").on('click', '.reply-update-btn', function(event){
+    var block = event.target.parentNode.parentNode;
+    var reply_id = block.id;
+    var input = $(block).find("textarea").val();
+
+    $.ajax({
+      url: "/replies/" + reply_id,
+      method: "PATCH",
+      datatype: "json",
+      data: {
+        content: input
+      },
+      success: function(data){
+        var btn = $('<i class = "glyphicon glyphicon-pencil reply-edit-btn" aria-hidden="true"></i>');
+        var block = $(".reply-list").find("#" + data["reply_id"]);
+        var text = $(block).find(".text-content").find("textarea").val();
+        $(block).find(".text-content").find("textarea").hide();
+        $(block).find(".text-content").append($.simpleFormat(text));
+        $(block).find(".btn-control-group").find(".reply-update-btn").remove();
+        $(block).find(".btn-control-group").prepend(btn);
+      }
+    });
+  });
+
+  (function($) {
+  $.simpleFormat = function(str) {
+    str = str.replace(/\r\n?/, "\n");
+    str = $.trim(str);
+    if (str.length > 0) {
+      str = str.replace(/\n\n+/g, "</p><p>");
+      str = str.replace(/\n/g, "<br />");
+      str = "<p></p>" + "<p>" + str + "</p>" + "<p></p>";
+    }
+    return str;
+  };
+
+  $.fn.simpleFormat = function() {
+    return this.html($.simpleFormat(this.html()));
+  };
+
+})(jQuery);
 </script>
 
