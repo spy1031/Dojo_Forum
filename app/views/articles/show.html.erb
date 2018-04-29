@@ -36,7 +36,7 @@
         </div>
         <div class="text-content col-md-10">
           <%= image_tag @article.image, class:"img-responsive img-rounded " if @article.image && @article.image != "" %>
-          <p><%= @article.content %></p>
+          <p><%= simple_format(@article.content) %></p>
         </div>
         <div class="btn-control-group text-right">
           <% if current_user == @article.user || current_user.admin? %>
@@ -67,7 +67,7 @@
           </div>
 
           <div class="text-content col-md-10">
-            <p><%= reply.content %></p>
+            <p><%= simple_format(reply.content) %></p>
           </div>
           <div class="btn-control-group text-right">
             <% if current_user.admin? || current_user == @article.user || current_user == reply.user %>
@@ -80,7 +80,7 @@
   </div> 
   <div class="reply-form">
     <%= form_for @reply do |f|%>
-      <%= f.text_area :content, class: "form-control input-text" %>
+      <%= f.text_area :content, rows: "5",  class: "form-control input-text" %>
       <br>
       <%= f.hidden_field :article_id, :value => @article.id %>
       <%= f.submit "回覆", class: "btn btn-default" %>
