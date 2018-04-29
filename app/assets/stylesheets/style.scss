@@ -10,6 +10,7 @@
 
 th {
   text-align: center;
+  min-width: 85px;
 }
 
 th.th-text {
@@ -17,8 +18,8 @@ th.th-text {
 }
 
 th.th-time {
-  text-align: right;
-  width: 15%;
+  text-align: center;
+  width: 145px;
 }
 
 td{
@@ -46,6 +47,7 @@ td.td-num {
 .cover-block {
   background-color: #008B8B; 
   margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 h2.header-font {
@@ -152,3 +154,42 @@ div.article-btn-group {
 .reply-form {
   margin: 5px 0px 20px;
 }
+
+/*======================= article-feeds-page =======================*/
+
+.feeds-cover-block {
+  background-color: #DCDCDC;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.feeds-cover-block .info-block {
+  margin: 0% 10%;
+  text-align: center;
+}
+
+.feeds-cover-block h3{
+  color:  #696969
+}
+
+h3.num {
+  background-color: white;
+  border: 2px solid black;
+}
+
+
+.user-count-block {
+  display: inline-block;
+  margin: 0 5%;
+}
+
+.article-count-block {
+  display: inline-block;
+  margin: 0 5%;
+}
+
+.reply-count-block {
+  display: inline-block;
+  margin: 0 5%;
+}
+
