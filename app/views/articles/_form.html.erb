@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container article-form">
   <%= form_for article do |f|%>
     <%= f.label :title, "Title" %>
     <%= f.text_field :title, class: "form-control"%>
@@ -6,7 +6,7 @@
     <%= f.label :content, "Content" %>
     <%= f.text_area :content, class: "form-control"%>
     <br>
-      
+    
     <%= f.filestack_field :image, '上傳照片', class: "btn btn-default" %>
     <%= image_tag article.image, class:"img-responsive img-rounded " if article.image && article.image != "" %>
     <br>
@@ -22,7 +22,7 @@
 
     <label>文章分類:</label>
 
-    <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: false} %>
+    <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: false}, class: "form-control" %>
 
     <br>
     <% if article.status == false%>
@@ -38,3 +38,9 @@
     <input type="submit" class="btn-primary" name="sumit" value="發佈">
   <% end %>
 </div>
+
+<script type="text/javascript">
+  window.setTimeout( function() {
+    $("textarea").height( $("textarea")[0].scrollHeight );
+  }, 1);
+</script>
