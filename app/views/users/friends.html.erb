@@ -8,7 +8,7 @@
     <% @user.requests.each do |user| %>
       <div class="avatar-block col-md-2" id="<% user.id %>">
         <% if user.avatar %>
-          <%= filestack_image user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded "%>
+          <%= image_tag user.avatar, class:"img-responsive img-rounded "%>
         <% else %>
           <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
         <% end %>
@@ -20,14 +20,18 @@
   <div class="invite-block col-md-12">
     <h2 class="class-title">交友邀請</h2>
     <% @user.invites.each do |user| %>
-      <div class="col-md-2" id="<%= user.id%>">
-        <%= filestack_image user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if user.avatar%>
-        <%= link_to user.name, articles_user_path(user) %>
+      <div class="avatar-block col-md-2" id="<%= user.id%>">
+        <% if user.avatar %>
+          <%= image_tag user.avatar, class:"img-responsive img-rounded "%>
+        <% else %>
+          <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
+        <% end %>
+        <p><%= link_to user.name, articles_user_path(user)%></p>
         
           
         
-        <button class="btn btn-success btn-agree-invite">同意</button>
-        <button class="btn btn-warning btn-ignore-invite">忽略</button>
+        <button class="btn btn-agree-invite">同意</button>
+        <button class="btn btn-ignore-invite">忽略</button>
       </div>
     <% end %>
   </div>
@@ -35,15 +39,23 @@
   <div class="friend-block col-md-12">
     <h2 class="class-title">朋友名單</h2>
     <% @user.friends.each do |user| %>
-      <div class="col-md-2">
-        <%= filestack_image user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if user.avatar%>
-        <%= link_to user.name, articles_user_path(user)%>
+      <<div class="avatar-block col-md-2" id="<% user.id %>">
+        <% if user.avatar %>
+          <%= image_tag user.avatar, class:"img-responsive img-rounded "%>
+        <% else %>
+          <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
+        <% end %>
+        <p><%= link_to user.name, articles_user_path(user)%></p>
       </div>
     <% end %>
     <% @user.inverse_friends.each do |user| %>
-      <div class="col-md-2">
-        <%= filestack_image user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded " if user.avatar%>
-        <%= link_to user.name, articles_user_path(user)%>
+      <div class="avatar-block col-md-2">
+        <% if user.avatar %>
+          <%= image_tag user.avatar, class:"img-responsive img-rounded "%>
+        <% else %>
+          <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
+        <% end %>
+        <p><%= link_to user.name, articles_user_path(user)%></p>
       </div>
     <% end %>
   </div>

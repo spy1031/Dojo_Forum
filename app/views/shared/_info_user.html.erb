@@ -1,7 +1,7 @@
 <div class="row user-info-block">
     <div class="avatar-block col-md-2" id="<% user.id %>">
     <% if user.avatar %>
-      <%= filestack_image user.avatar, transform: filestack_transform.resize(width:100, height:100), class:"img-responsive img-rounded "%>
+      <%= image_tag user.avatar, class:"img-responsive img-rounded "%>
     <% else %>
       <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
     <% end %>
