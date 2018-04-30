@@ -39,7 +39,7 @@
   <div class="friend-block col-md-12">
     <h2 class="class-title">朋友名單</h2>
     <% @user.friends.each do |user| %>
-      <<div class="avatar-block col-md-2" id="<% user.id %>">
+      <div class="avatar-block col-md-2" id="<% user.id %>">
         <% if user.avatar %>
           <%= image_tag user.avatar, class:"img-responsive img-rounded "%>
         <% else %>

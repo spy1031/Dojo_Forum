@@ -2,7 +2,11 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   def index
-    @articles = Article.where("status = ?", true).page(params[:page]).per(20)
+    if current_user == nil
+      @articles = Article.where("status = ? AND authority = ?", true, 1).page(params[:page]).per(20)
+    else
+      @articles = Article.where("status = ? AND authority = ? OR  authority = ?", true, 1, 2).page(params[:page]).per(20)
+    end
   end
 
   def new
@@ -10,10 +14,15 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article.views_count +=1
-    @article.save!
-    @collection = current_user.collections.find_by(article_id: @article.id)
-    @reply = Reply.new
+    if @article.authority == 1 || (@article.authority == 2 && current_user.friend?(@article.user) ==3)
+      @article.views_count +=1
+      @article.save!
+      @collection = current_user.collections.find_by(article_id: @article.id)
+      @reply = Reply.new
+    else
+      flash[:alert] = "權限不符"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def create

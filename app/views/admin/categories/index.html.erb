@@ -1,9 +1,9 @@
 <div class="container">
-  <%= render :partial => "shared/tabs_admin_user", :locals => {selected_item: "文章分類"} %>
-
+  <%= render :partial => "shared/tabs_admin_user", :locals => {selected_item: "文章類別"} %>
+  <br>
   <%= form_for [:admin, @category] do |f|%>
     <%= f.text_field :name %>
-    <%= f.submit "新增" %>
+    <%= f.submit "新增", class: "btn btn-default" %>
   <% end %>
 
   <table class="table">
