@@ -219,6 +219,10 @@ h2.class-title {
 }
 
 /*======================= article-form =======================*/
+form {
+  margin-bottom: 10px;
+}
+
 .article-form label{
   font-size: 20px;
 }
@@ -232,3 +236,20 @@ h2.class-title {
 .article-form input{
   font-size: 20px;
 }
+
+/*======================= user-form =======================*/
+
+.user-form label{
+  font-size: 20px;
+}
+
+
+.user-form textarea {
+  height: 20em;
+  font-size: 20px;
+}
+
+.user-form input{
+  font-size: 20px;
+}
+

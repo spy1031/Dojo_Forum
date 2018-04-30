@@ -46,15 +46,6 @@
     $("textarea").height( $("textarea")[0].scrollHeight );
   }, 1);
 
-  $("#article_image").on('change', function(event){
-    var image = $("image");
-    var url = event.target.value;
-    $(image).attr('src', url);
-    console.log(url);
-    console.log(image);
-    console.log("test");
-  });
-
   function updateImg(){
     (function(){
         Dojo_Forum.pick().then(function(data){(function(data){const filestack_input_field= document.getElementById('article_image');
@@ -62,9 +53,7 @@
           $("img").attr('src', filestack_input_field.value);
           console.log("test");
         })(data)})
-    })()
-
-    
+    })()    
   }
   
 </script>
