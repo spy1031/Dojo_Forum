@@ -1,7 +1,6 @@
 <div class="container">
-  <div class="row">
-    <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
-  </div>
+  <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
+
   <br>
   <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '好友列表' } %>
   <div class="request-block col-md-12">

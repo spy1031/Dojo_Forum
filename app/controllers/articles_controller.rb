@@ -44,8 +44,17 @@ class ArticlesController < ApplicationController
     end
 
     if @article.update(article_params)
-      flash[:notice] = "成功更新文章"
-      redirect_to article_path(@article)
+      if params[:draft]
+        @article.status = false
+        @article.save!
+        flash[:notice] = "成功儲存草稿"
+        redirect_to drafts_user_path(current_user)
+      else
+        @article.status = true
+        @article.save!
+        flash[:notice] = "成功發布文章"
+        redirect_to article_path(@article)
+      end
     else
       flash[:alert] = @article.errors.full_messages.to_sentence 
     end

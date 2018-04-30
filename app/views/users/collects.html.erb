@@ -1,7 +1,5 @@
 <div class="container">
-  <div class="row">
-    <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
-  </div>
+  <%= render :partial => "shared/info_user", :locals => { :user => @user } %>
   <br>
   
   <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '收藏列表' } %>
@@ -9,14 +7,14 @@
   <table class="table">
     <thead>
       <tr>
-        <th>標題</th>
+        <th class="th-text">標題</th>
         <th>功能</th>
       </tr>        
     </thead>
     <tbody class="collection-list">
       <% @collections.each do |collection| %>
         <tr id="<%= collection.article.id %>">
-          <td><%= link_to collection.article.title, article_path(collection.article) %></td>
+          <td class="td-text"><%= link_to collection.article.title, article_path(collection.article) %></td>
           <td>
             <button class="uncollect btn btn-default" id="<%= collection.id%>">
               取消收藏

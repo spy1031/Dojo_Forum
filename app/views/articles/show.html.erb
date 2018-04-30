@@ -38,12 +38,7 @@
           <%= image_tag @article.image, class:"img-responsive img-rounded " if @article.image && @article.image != "" %>
           <p><%= simple_format(@article.content) %></p>
         </div>
-        <div class="btn-control-group text-right">
-          <% if current_user == @article.user || current_user.admin? %>
-            <%= link_to '<i class = "glyphicon glyphicon-pencil" aria-hidden="true"></i>'.html_safe, edit_article_path(@article)%>
-            <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(@article), method: :delete, data:{confirm:"Are you sure>"}%>
-          <% end %>
-        </div>
+        <%= render :partial => "shared/btn_article", :locals => {:article => @article} %>
       </div>
         
       

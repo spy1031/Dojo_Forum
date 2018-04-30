@@ -6,3 +6,32 @@
 <% when 2%>
   <button class="btn">取消邀請</button>
 <% end %>
+
+
+<script type="text/javascript">
+  //送出好友邀請
+  $(".btn-add-friend").on('click', function(event){
+    var user_id = event.target.id;
+    $.ajax({
+      url: "/friendships",
+      method: "POST",
+      datatype: "json",
+      data: {
+        user_id: user_id
+      },
+      success: function(data){
+        var btn = $(".btn-add-friend");
+        if(data["status"] == 3){
+          $(btn).html("好友");
+          $(btn).prop('disabled', true);
+        }
+        else if(data["status"] == 2){
+          $(btn).html("取消邀請");
+          $(btn).removeClass("btn-add-friend");
+          $(btn).addClass("btn-cancel-invite");
+        }
+        
+      }
+    });
+  });
+</script>
