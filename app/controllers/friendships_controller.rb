@@ -11,12 +11,8 @@ class FriendshipsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     case current_user.friend?(@use)
-    when 3 
-
-    when 2
-
-    when 1
-      @friendship = @user.friend_request.find_by(friend_id: current_user)
+    when 1 #user already send invite
+      @friendship = @user.friend_requests.find_by(friend_id: current_user)
       @friendship.status = 3
       @friendship.save!
       render :json => {status: 3}
@@ -25,8 +21,14 @@ class FriendshipsController < ApplicationController
       @friendship.save!
       render :json => {status: 2}
     end
-    
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @friendship = current_user.friend_requests.find_by(friend_id: @user.id)
+    @friendship.destroy
+
+    render :json => {status: 0}
+  end
 
 end

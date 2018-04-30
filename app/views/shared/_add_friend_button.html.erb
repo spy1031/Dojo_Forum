@@ -1,17 +1,23 @@
-<% case current_user.friend?(user) %>
-<% when 0%>
-  <button class="btn btn-add-friend" id="<%=user.id%>">加好友</button>
-<% when 1%>
-  <button class="btn"></button>
-<% when 2%>
-  <button class="btn">取消邀請</button>
+<% if user != current_user %>
+  <div class="btn-friend" id="<%=user.id%>" >
+    <% case current_user.friend?(user) %>
+    <% when 0%>
+      <button class="btn btn-add-friend" >加好友</button>
+    <% when 1%>
+      <button class="btn"></button>
+    <% when 2%>
+      <button class="btn btn-cancel-invite" >取消邀請</button>
+    <% when 3%>
+      <button class="btn btn-cancel-invite" >好友</button>
+    <% end %>
+  </div>
 <% end %>
 
 
 <script type="text/javascript">
   //送出好友邀請
-  $(".btn-add-friend").on('click', function(event){
-    var user_id = event.target.id;
+  $(".btn-friend").on('click', '.btn-add-friend',function(event){
+    var user_id = event.target.parentNode.id;
     $.ajax({
       url: "/friendships",
       method: "POST",
@@ -20,17 +26,30 @@
         user_id: user_id
       },
       success: function(data){
-        var btn = $(".btn-add-friend");
         if(data["status"] == 3){
-          $(btn).html("好友");
-          $(btn).prop('disabled', true);
+          var btn = $('<button class="btn">好友</button>');
+          $(".btn-add-friend").remove();
         }
         else if(data["status"] == 2){
-          $(btn).html("取消邀請");
-          $(btn).removeClass("btn-add-friend");
-          $(btn).addClass("btn-cancel-invite");
+          var btn = $('<button class="btn btn-cancel-invite">取消邀請</button>');
+          $(".btn-add-friend").remove();
         }
-        
+        $(".btn-friend").append(btn);
+      }
+    });
+  });
+
+  //取消邀請
+  $(".btn-friend").on('click', '.btn-cancel-invite', function(evnet){
+    var user_id = event.target.parentNode.id;
+    $.ajax({
+      url: "/friendships/" + user_id,
+      method: "delete",
+      datatype: "json",
+      success: function(data){
+        var btn = $('<button class="btn btn-add-friend">加好友</button>');
+        $(".btn-cancel-invite").remove();
+        $(".btn-friend").append(btn);
       }
     });
   });
