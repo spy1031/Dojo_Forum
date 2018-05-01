@@ -42,7 +42,8 @@ gem 'ffaker'
 gem 'kaminari'
 #updload image
 gem 'filestack-rails', '~> 3.1.0'
-
+# send HTTP request
+gem 'rest-client'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
