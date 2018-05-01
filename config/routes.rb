@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api, defaults: {format: :json} do
     namespace :v1 do 
+      
+      post "/login" => "auth#login"
+      post "/logout" => "auth#logout"
+
       resources :articles, only: [:index, :show, :create, :update, :destroy]
     end
 
