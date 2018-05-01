@@ -15,9 +15,10 @@
           <% end %>
         </div>
         <div class="btn-control-group text-right" >
+           <% if current_user == @user %>
           <i class = "glyphicon glyphicon-pencil reply-edit-btn" aria-hidden="true"></i>
-    
           <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
+          <% end %>
         </div>
       </div>
     </div>
