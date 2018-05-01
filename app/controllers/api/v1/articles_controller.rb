@@ -1,5 +1,5 @@
 class Api::V1::ArticlesController < ApiController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :create]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   def index
     if current_user == nil
@@ -30,7 +30,46 @@ class Api::V1::ArticlesController < ApiController
     end
   end
 
+  def create
+    @article = current_user.articles.build(article_params)
+    @article.last_reply_time = Time.now.localtime
+    if params[:draft]
+      @article.status = false
+      if @article.save
+        render json: {
+          message: "Article post successfully",
+          result: @article
+        }
+      else
+        render json: {
+          errors: @article.errors
+        }
+      end
+    else
+      @article.status = true
+      if @article.save
+        render json: {
+          message: "Article save as draft successfully",
+          result: @article
+        }
+      else
+        render json: {
+          errors: @article.errors
+        }
+      end
+    end
+  end
+
   private
+
+  def article_params
+    params.require(:article).permit(
+      :title,
+      :content,
+      :authority,
+      :category_id,
+      :image)
+  end
 
   def set_article
     @article = Article.find(params[:id])
