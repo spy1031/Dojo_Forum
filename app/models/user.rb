@@ -22,6 +22,8 @@ class User < ApplicationRecord
   has_many :friend_invites, ->{where status: 2}, class_name: "Friendship", foreign_key: "friend_id"
   has_many :invites, through: :friend_invites, source: :user
 
+  before_create :generate_authentication_token
+  
   def admin?
     self.role == "admin"
   end
