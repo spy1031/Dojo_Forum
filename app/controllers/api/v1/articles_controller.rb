@@ -91,6 +91,19 @@ class Api::V1::ArticlesController < ApiController
     end
   end
 
+  def destroy
+    if current_user.role == "admin" || current_user == @article.user
+      @article.destroy
+      render json: {
+        message: "destroy article successfully."
+      }
+    else
+      render json: {
+        errors: "權限不符"
+      } 
+    end
+  end
+
   private
 
   def article_params
