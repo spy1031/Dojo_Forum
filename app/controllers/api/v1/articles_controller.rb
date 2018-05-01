@@ -61,6 +61,36 @@ class Api::V1::ArticlesController < ApiController
     end
   end
 
+  def update
+    if current_user != @article.user
+      render json: {
+        errors: "Your are not owner."
+      }
+    elsif @article.update(article_params)
+      if params[:draft]
+        @article.status = false
+        @article.save!
+        render json: {
+          message: "Update article successfully.",
+          result: @article
+        } 
+        
+      else
+        @article.status = true
+        @article.save!
+        render json: {
+          message: "Update article successfully.",
+          result: @article
+        } 
+        
+      end
+    else
+      render json: {
+          errors: @article.errors
+      } 
+    end
+  end
+
   private
 
   def article_params

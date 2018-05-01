@@ -53,9 +53,7 @@ class ArticlesController < ApplicationController
   def update
     if current_user != @article.user
       redirect_to root_path
-    end
-
-    if @article.update(article_params)
+    elsif @article.update(article_params)
       if params[:draft]
         @article.status = false
         @article.save!
