@@ -1,7 +1,7 @@
 class Api::V1::ArticlesController < ApiController
   before_action :authenticate_user!, except: :index
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  
+
   def index
     if current_user == nil
       @articles = Article.where("status = ? AND authority = ?", true, 1)
@@ -38,7 +38,7 @@ class Api::V1::ArticlesController < ApiController
       @article.status = false
       if @article.save
         render json: {
-          message: "Article post successfully",
+          message: "Article save as draft successfully",
           result: @article
         }
       else
@@ -50,7 +50,7 @@ class Api::V1::ArticlesController < ApiController
       @article.status = true
       if @article.save
         render json: {
-          message: "Article save as draft successfully",
+          message: "Article post successfully",
           result: @article
         }
       else
@@ -64,12 +64,13 @@ class Api::V1::ArticlesController < ApiController
   private
 
   def article_params
-    params.require(:article).permit(
+    params.permit(
       :title,
       :content,
       :authority,
       :category_id,
-      :image)
+      :image,
+      )
   end
 
   def set_article
