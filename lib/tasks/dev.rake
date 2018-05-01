@@ -1,17 +1,21 @@
 namespace :dev do 
 
   task fake_user: :environment do
-    User.destroy_all
-    20.times do |i|
-      name = FFaker::Name::first_name
+    User.where("role != ?","admin").destroy_all
+    url = "https://uinames.com/api/?ext&region=england"
+    15.times do |i|
       
+      response = RestClient.get(url)
+      data = JSON.parse(response.body)
+
       user = User.new(
-        email: "#{name}@example.co",
-        password: "12345678",
+        email: data["name"] +"@example.com",
+        password: "123456",
         role: "normal",
-        name: name,
+        name: data["name"],
         introduction: FFaker::Lorem::sentence(30),
-        gender: ["male","female"].sample
+        gender: ["male","female"].sample,
+        avatar: data["photo"]
       )
 
       user.save!
