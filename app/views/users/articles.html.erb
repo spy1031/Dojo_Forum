@@ -3,7 +3,7 @@
 
   <br>
   
-  <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '文章列表' } %>
+  <%= render :partial => "shared/tabs_user", :locals => { :selected_item => '文章列表', :user => @user } %>
 
   <table class="table">
     <thead>
@@ -18,17 +18,19 @@
     </thead>
     <tbody>
       <% @articles.each do |article| %>
-        <tr>
-          <td class="td-text"><%= link_to article.title, article_path(article) %></td>
-          <td><%= article.category.name %></td>
-          <td><%= article.created_at.to_s[0..15] %></td>
-          <td class="btn-control-group">
-            <% if current_user == @user %>
-              <%= link_to '<i class = "glyphicon glyphicon-pencil" aria-hidden="true"></i>'.html_safe, edit_article_path(article)%>
-              <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(article), method: :delete, data:{confirm:"Are you sure>"}%>
-            <% end %>
-          </td>
-        </tr>
+        <% if current_user == @user  || (current_user)%>
+          <tr>
+            <td class="td-text"><%= link_to article.title, article_path(article) %></td>
+            <td><%= article.category.name %></td>
+            <td><%= article.created_at.to_s[0..15] %></td>
+            <td class="btn-control-group">
+              <% if current_user == @user %>
+                <%= link_to '<i class = "glyphicon glyphicon-pencil" aria-hidden="true"></i>'.html_safe, edit_article_path(article)%>
+                <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(article), method: :delete, data:{confirm:"Are you sure>"}%>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

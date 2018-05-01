@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user
   before_action :authenticate_user!
+  before_action :authenticate_self_user!, except: [:articles, :replies]
   def edit
     if @user != current_user 
       flash[:alert] = "權限錯誤"
@@ -44,5 +45,12 @@ class UsersController < ApplicationController
       :name,
       :introduction,
       :avatar)
+  end
+
+  def authenticate_self_user!
+    if current_user != @user
+      flash[:alert] = "The information wasnot belong to you."
+      redirect_back(fallback_location: root_path)
+    end
   end
 end
