@@ -1,4 +1,5 @@
 class FriendshipsController < ApplicationController
+  before_action :authenticate_user!
   def update
     @user = User.find(params[:id])
     @friendship = current_user.friend_invites.find_by(user_id: @user.id)

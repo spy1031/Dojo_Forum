@@ -1,4 +1,5 @@
 class CollectionsController < ApplicationController
+  before_action :authenticate_user!
   def create
     @collection = current_user.collections.build(article_id: params[:article_id])
     @collection.save!

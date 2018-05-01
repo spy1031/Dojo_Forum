@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user
-
+  before_action :authenticate_user!
   def edit
     if @user != current_user 
       flash[:alert] = "權限錯誤"
