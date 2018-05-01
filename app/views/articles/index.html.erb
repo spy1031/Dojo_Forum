@@ -25,22 +25,20 @@
       <tbody>
           
         <% @articles.each do |article|%>
-          <% if article.authority == 1 || (article.authority == 2 && current_user.friend?(article.user) ==3) %>
-            <tr>
-              <td class="td-num" >
-                <span ><%= article.replies_count %></span>            
-              </td>
-              <td class="td-text"><%= link_to article.title, article_path(article)%></td>
-              <td class="td-time"><%= article.last_reply_time.to_s[0..9] %></td>
-              <td class="td-num">
-                <i class = "glyphicon glyphicon-eye-open" aria-hidden="true"></i>
-                <%= article.views_count %>
-              </td>
-              <% if current_user && current_user.role == "admin"%>
-                <th><%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(article), method: :delete, data:{confirm:"Are you sure>"}%></th>
-              <% end %>
-            </tr>
-          <% end %>
+          <tr>
+            <td class="td-num" >
+              <span ><%= article.replies_count %></span>            
+            </td>
+            <td class="td-text"><%= link_to article.title, article_path(article)%></td>
+            <td class="td-time"><%= article.last_reply_time.to_s[0..9] %></td>
+            <td class="td-num">
+              <i class = "glyphicon glyphicon-eye-open" aria-hidden="true"></i>
+              <%= article.views_count %>
+            </td>
+            <% if current_user && current_user.role == "admin"%>
+              <th><%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, article_path(article), method: :delete, data:{confirm:"Are you sure>"}%></th>
+            <% end %>
+          </tr>
         <% end %>
       </tbody>
     </table>

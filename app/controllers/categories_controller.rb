@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @articles = @category.articles.where("status =?", true).page(params[:page]).per(20)
+    @articles = @category.articles.where("status =?", true).check_authority(current_user).page(params[:page]).per(20)
   end
 
   private

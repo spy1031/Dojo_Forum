@@ -4,8 +4,8 @@ class ArticlesController < ApplicationController
   def index
     if current_user == nil
       @articles = Article.where("status = ? AND authority = ?", true, 1).page(params[:page]).per(20)
-    else
-      @articles = Article.where("status = ? AND authority = ? OR  authority = ?", true, 1, 2).page(params[:page]).per(20)
+    else 
+      @articles = Article.where("status = ?", true).check_authority(current_user).page(params[:page]).per(20)
     end
   end
 
@@ -95,9 +95,9 @@ class ArticlesController < ApplicationController
     if params[:category_id]
       @category_id = params[:category_id]
       @category = Category.find(@category_id)
-      @articles = Article.where("status = ? AND category_id = ? ", true, @category_id).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
+      @articles = Article.where("status = ? AND category_id = ? ", true, @category_id).check_authority(current_user).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
     else
-      @articles = Article.where("status =? ", true).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
+      @articles = Article.where("status =? ", true).check_authority(current_user).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
     end
   end
 

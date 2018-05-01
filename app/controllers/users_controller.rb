@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def articles
-    @articles = @user.articles.where("status = ? ", true)
+    @articles = @user.articles.where("status = ?", true).check_authority(current_user)
   end
 
   def replies
