@@ -17,7 +17,7 @@
     <tbody>
       <% @articles.each do |article| %>
         <tr class="block">
-          <td class="td-text"><%= link_to article.title, article_path(article) %></td>
+          <td class="td-text"><%= article.title %></td>
           <td><%= article.category.name %></td>
           <td><%= article.created_at.to_s[0..15] %></td>
           <td class="btn-control-group">

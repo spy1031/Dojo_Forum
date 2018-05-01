@@ -11,7 +11,15 @@ class Api::V1::ArticlesController < ApiController
   end
 
   def show
-    if @article.authority == 1 || (@article.authority == 2 && current_user.friend?(@article.user) ==3)
+    if @article.status == false
+      if current_user != @article.user
+        render json: {
+          errors: "文章尚未發佈"
+        }
+      else
+        render json: @article
+      end
+    elsif @article.authority == 1 || (@article.authority == 2 && current_user.friend?(@article.user) ==3)
       @article.views_count +=1
       @article.save!
       render json: @article

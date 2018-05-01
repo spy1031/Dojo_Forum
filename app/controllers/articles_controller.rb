@@ -14,7 +14,10 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    if @article.authority == 1 || (@article.authority == 2 && current_user.friend?(@article.user) ==3)
+    if @article.status == false
+      flash[:alert] = "文章尚未發佈"
+      redirect_back(fallback_location: root_path)
+    elsif @article.authority == 1 || (@article.authority == 2 && current_user.friend?(@article.user) ==3)
       @article.views_count +=1
       @article.save!
       @collection = current_user.collections.find_by(article_id: @article.id)
