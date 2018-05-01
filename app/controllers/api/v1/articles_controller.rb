@@ -1,5 +1,5 @@
 class Api::V1::ArticlesController < ApiController
-  before_action :authenticate_user!, except: [:index, :create]
+  before_action :authenticate_user_from_token!, except: [:index]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   def index
     if current_user == nil
