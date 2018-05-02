@@ -9,10 +9,10 @@ namespace :dev do
       data = JSON.parse(response.body)
 
       user = User.new(
-        email: data["name"] +"@example.com",
+        email: FFaker::Name::first_name + "@example.com",
         password: "123456",
         role: "normal",
-        name: data["name"],
+        name: FFaker::Name::first_name,
         introduction: FFaker::Lorem::sentence(30),
         gender: ["male","female"].sample,
         avatar: data["photo"]
@@ -28,9 +28,9 @@ namespace :dev do
     User.all.each do |user|
       category = Category.all.sample
       article = user.articles.build(
-        title: category.name,
+        title: FFaker::Book::title,
         content: FFaker::Lorem::sentence(100),
-        authority: 0,
+        authority: 1,
         status: true,
         last_reply_time: Time.zone.now,
         category_id: category.id)
