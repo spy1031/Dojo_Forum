@@ -24,7 +24,6 @@ namespace :dev do
   end
 
   task fake_article: :environment do
-    Article.destroy_all
     User.all.each do |user|
       category = Category.all.sample
       article = user.articles.build(
@@ -33,10 +32,11 @@ namespace :dev do
         authority: 1,
         status: true,
         last_reply_time: Time.zone.now,
-        category_id: category.id)
+        views_count: rand(100)
+        )
       article.save!
+      article.article_categories.create(category_id: category.id)
       puts "#{user.name} create a article"
     end
-    
   end
 end
