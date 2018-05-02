@@ -20,7 +20,7 @@ class FriendshipsController < ApplicationController
     when 0
       @friendship = current_user.friendships.build(friend_id: params[:user_id], status: 2)
       @friendship.save!
-      render :json => {status: 2}
+      render :json => {:status => 2, :user_id => params[:user_id]}
     end
   end
 
@@ -29,7 +29,7 @@ class FriendshipsController < ApplicationController
     @friendship = current_user.friend_requests.find_by(friend_id: @user.id)
     @friendship.destroy
 
-    render :json => {status: 0}
+    render :json => {:status => 0, :user_id => params[:id] }
   end
 
 end

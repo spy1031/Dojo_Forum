@@ -8,49 +8,7 @@
     <% when 2%>
       <button class="btn btn-cancel-invite" >取消邀請</button>
     <% when 3%>
-      <button class="btn btn-cancel-invite" >好友</button>
+      <button class="btn" disabled="disabled" >好友</button>
     <% end %>
   </div>
 <% end %>
-
-
-<script type="text/javascript">
-  //送出好友邀請
-  $(".btn-friend").on('click', '.btn-add-friend',function(event){
-    var user_id = event.target.parentNode.id;
-    $.ajax({
-      url: "/friendships",
-      method: "POST",
-      datatype: "json",
-      data: {
-        user_id: user_id
-      },
-      success: function(data){
-        if(data["status"] == 3){
-          var btn = $('<button class="btn">好友</button>');
-          $(".btn-add-friend").remove();
-        }
-        else if(data["status"] == 2){
-          var btn = $('<button class="btn btn-cancel-invite">取消邀請</button>');
-          $(".btn-add-friend").remove();
-        }
-        $(".btn-friend").append(btn);
-      }
-    });
-  });
-
-  //取消邀請
-  $(".btn-friend").on('click', '.btn-cancel-invite', function(evnet){
-    var user_id = event.target.parentNode.id;
-    $.ajax({
-      url: "/friendships/" + user_id,
-      method: "delete",
-      datatype: "json",
-      success: function(data){
-        var btn = $('<button class="btn btn-add-friend">加好友</button>');
-        $(".btn-cancel-invite").remove();
-        $(".btn-friend").append(btn);
-      }
-    });
-  });
-</script>

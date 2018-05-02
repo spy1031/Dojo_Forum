@@ -58,7 +58,7 @@
               <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
             <% end %>
             <p><%= link_to reply.user.name, articles_user_path(@article.user)%></p>
-            <%= render :partial => "shared/add_friend_button", :locals => { :user => @article.user} %>  
+            <%= render :partial => "shared/add_friend_button", :locals => { :user => reply.user} %>  
           </div>
 
           <div class="text-content col-md-10">
@@ -90,8 +90,8 @@
 <script type="text/javascript">
   
   //送出好友邀請
-  $(".btn-add-friend").on('click', function(event){
-    var user_id = event.target.id;
+  $(".btn-friend").on('click', '.btn-add-friend',function(event){
+    var user_id = event.target.parentNode.id;
     $.ajax({
       url: "/friendships",
       method: "POST",
@@ -100,17 +100,31 @@
         user_id: user_id
       },
       success: function(data){
-        var btn = $(".btn-add-friend");
+        console.log(data);
         if(data["status"] == 3){
-          $(btn).html("好友");
-          $(btn).prop('disabled', true);
+          var btn = $('<button class="btn">好友</button>');
         }
         else if(data["status"] == 2){
-          $(btn).html("取消邀請");
-          $(btn).removeClass("btn-add-friend");
-          $(btn).addClass("btn-cancel-invite");
+          var btn = $('<button class="btn btn-cancel-invite">取消邀請</button>');
         }
-        
+        $("#"+data["user_id"]+".btn-friend").find(".btn-add-friend").remove();
+        $("#"+data["user_id"]+".btn-friend").append(btn);
+      }
+    });
+  });
+
+  //取消邀請
+  $(".btn-friend").on('click', '.btn-cancel-invite', function(evnet){
+    var user_id = event.target.parentNode.id;
+    $.ajax({
+      url: "/friendships/" + user_id,
+      method: "delete",
+      datatype: "json",
+      success: function(data){
+        var btn = $('<button class="btn btn-add-friend">加好友</button>');
+        $("#"+data["user_id"]+".btn-friend").find(".btn-cancel-invite").remove();
+        $("#"+data["user_id"]+".btn-friend").append(btn);
+        console.log(data);
       }
     });
   });
@@ -127,6 +141,8 @@
       },
       success: function(data){
         var btn = $('<button class="uncollect btn btn-default" >取消收藏</button>');
+        console.log(data);
+        console.log("test");
         $(".article-btn-group").find(".collect").remove();
         $(btn).attr('id', data["collection_id"]);
         $(".article-btn-group").prepend(btn);
