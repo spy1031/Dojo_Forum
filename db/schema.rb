@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180501104556) do
+ActiveRecord::Schema.define(version: 20180502074538) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title", null: false
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20180501104556) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.string "introduction"
+    t.text "introduction"
     t.string "gender"
     t.string "avatar"
     t.integer "replies_count", default: 0
