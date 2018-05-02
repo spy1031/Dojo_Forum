@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @article = Article.new(image: "")
     @categories = Category.all
   end
 
@@ -58,6 +58,8 @@ class ArticlesController < ApplicationController
     if current_user != @article.user
       redirect_to root_path
     end
+    @article_categories = @article.categories
+    @categories = Category.all
   end
 
   def update

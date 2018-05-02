@@ -10,7 +10,7 @@
     <button name="button" type="button" class="btn btn-default btn-upload-image" onclick=" updateImg(event)">上傳照片</button>
     <br>
     <br>
-    <%= image_tag article.image, class:"img-responsive img-rounded " if article.image && article.image != "" %>
+    <%= image_tag article.image, class:"img-responsive img-rounded "%>
     <br>
 
     <%= f.label :authority, "觀看權限:" %>
@@ -25,7 +25,12 @@
     <label>文章分類:</label>
 
     <% @categories.each do |category| %>
-      <input type="checkbox" name="article_categories[<%= category.id %>]">
+      <% if @article_categories.include?(category) %>
+        <input type="checkbox" name="article_categories[<%= category.id %>]" checked>
+      <% else %>
+        <input type="checkbox" name="article_categories[<%= category.id %>]">
+      <% end %>
+        
       <label><%= category.name %></label>
     <% end %>
 
