@@ -2,7 +2,7 @@ class Article < ApplicationRecord
   validates_presence_of :title, :content, :authority
 
   belongs_to :user
-  belongs_to :category
+  has_many :category, through: :article_category
   has_many :replies, dependent: :destroy
   has_many :collections, dependent: :destroy
   has_many :collectors, through: :collections, source: :user
