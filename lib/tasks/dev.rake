@@ -39,4 +39,16 @@ namespace :dev do
       puts "#{user.name} create a article"
     end
   end
+
+  task fake_reply: :environment do
+    User.all.each do |user|
+      article = Article.where("status =? ",true).check_authority(user).sample
+      reply = article.replies.build(
+        content: FFaker::Lorem::sentence(100),
+        user_id: user.id,
+        )
+      reply.save!
+      puts "#{user.name} create a reply"
+    end
+  end
 end
