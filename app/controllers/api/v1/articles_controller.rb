@@ -18,12 +18,18 @@ class Api::V1::ArticlesController < ApiController
           errors: "文章尚未發佈"
         }
       else
-        render json: @article
+        render json: {
+          article: @article,
+          category: @article.categories
+        }
       end
     elsif @article.authority == 1 || (@article.authority == 2 && current_user.friend?(@article.user) ==3)
       @article.views_count +=1
       @article.save!
-      render json: @article
+      render json: {
+          article: @article,
+          category: @article.categories
+        }
     else
       render json: {
         errors: "權限不足"
@@ -34,12 +40,21 @@ class Api::V1::ArticlesController < ApiController
   def create
     @article = current_user.articles.build(article_params)
     @article.last_reply_time = Time.now.localtime
+    @article.save
+
+    Category.all.each do |category|
+      if params[:article_categories][category.id.to_s] != nil
+        @article.article_categories.create(category_id: category.id)
+      end
+    end
+
     if params[:draft]
       @article.status = false
       if @article.save
         render json: {
           message: "Article save as draft successfully",
-          result: @article
+          article: @article,
+          category: @article.categories
         }
       else
         render json: {
@@ -51,7 +66,8 @@ class Api::V1::ArticlesController < ApiController
       if @article.save
         render json: {
           message: "Article post successfully",
-          result: @article
+          article: @article,
+          category: @article.categories
         }
       else
         render json: {
@@ -111,8 +127,8 @@ class Api::V1::ArticlesController < ApiController
       :title,
       :content,
       :authority,
-      :category_id,
       :image,
+      :article_categories
       )
   end
 
