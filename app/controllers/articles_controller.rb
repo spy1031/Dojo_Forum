@@ -66,6 +66,12 @@ class ArticlesController < ApplicationController
     if current_user != @article.user
       redirect_to root_path
     elsif @article.update(article_params)
+      Category.all.each do |category|
+        if params[:article_categories][category.id.to_s] != nil
+          @article.article_categories.create(category_id: category.id)
+        end
+      end
+
       if params[:draft]
         @article.status = false
         @article.save!
