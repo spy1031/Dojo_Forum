@@ -48,7 +48,7 @@
   </div>
    
   <div class="reply-list">
-    <% @article.replies.all.each do |reply| %>
+    <% @article_replies.each do |reply| %>
       <div class="row">
         <div class="reply-content-block " id="<%= reply.id%>">
           <div class="avatar-block col-md-2" ">
@@ -85,7 +85,9 @@
       <%= f.submit "回覆", class: "btn btn-default" %>
     <% end %>
   </div>
-    
+  <div class="text-center">
+    <%= paginate @article_replies %> 
+  </div>
 </div>
 
 <script type="text/javascript">

@@ -22,6 +22,7 @@ class ArticlesController < ApplicationController
       @article.views_count +=1
       @article.save!
       @collection = current_user.collections.find_by(article_id: @article.id)
+      @article_replies = @article.replies.page(params[:page]).per(20)
       @reply = Reply.new
     else
       flash[:alert] = "權限不符"
