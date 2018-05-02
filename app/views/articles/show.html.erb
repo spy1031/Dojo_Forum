@@ -52,8 +52,8 @@
       <div class="row">
         <div class="reply-content-block " id="<%= reply.id%>">
           <div class="avatar-block col-md-2" ">
-            <% if @article.user.avatar %>
-              <%= image_tag @article.user.avatar, class:"img-responsive img-rounded "%>
+            <% if reply.user.avatar %>
+              <%= image_tag reply.user.avatar, class:"img-responsive img-rounded "%>
             <% else %>
               <%= image_tag "league_card.png", class:"img-responsive img-rounded "%>
             <% end %>
@@ -68,6 +68,7 @@
           <div class="btn-control-group text-right">
             <% if  current_user == reply.user %>
               <i class = "glyphicon glyphicon-pencil reply-edit-btn" aria-hidden="true"></i>
+              <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
             <% elsif current_user.admin? || current_user == @article.user %>                
               <%= link_to '<i class = "glyphicon glyphicon-remove text-danger" aria-hidden="true"></i>'.html_safe, reply_path(reply), method: :delete, data:{confirm:"Are you sure>"} %>
             <% end %>
