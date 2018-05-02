@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502081433) do
+ActiveRecord::Schema.define(version: 20180502082859) do
 
   create_table "article_categories", force: :cascade do |t|
     t.integer "article_id"
@@ -28,12 +28,10 @@ ActiveRecord::Schema.define(version: 20180502081433) do
     t.integer "views_count", default: 0
     t.integer "replies_count", default: 0
     t.datetime "last_reply_time"
-    t.integer "category_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
-    t.index ["category_id"], name: "index_articles_on_category_id"
     t.index ["last_reply_time"], name: "index_articles_on_last_reply_time"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
