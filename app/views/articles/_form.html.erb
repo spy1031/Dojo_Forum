@@ -24,7 +24,10 @@
 
     <label>文章分類:</label>
 
-    <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: false}, class: "form-control" %>
+    <% @categories.each do |category| %>
+      <input type="checkbox" name="article_categories[<%= category.id %>]">
+      <label><%= category.name %></label>
+    <% end %>
 
     <br>
     <% if article.status == false%>

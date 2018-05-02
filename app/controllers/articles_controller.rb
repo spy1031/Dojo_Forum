@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @categories = Category.all
   end
 
   def show
@@ -31,6 +32,14 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.build(article_params)
     @article.last_reply_time = Time.now.localtime
+    @article.save!
+    
+    Category.all.each do |category|
+      if params[:article_categories][category.id.to_s] != nil
+        @article.article_categories.create(category_id: category.id)
+      end
+    end
+
     if params[:draft]
       @article.status = false
       @article.save!
@@ -109,7 +118,6 @@ class ArticlesController < ApplicationController
       :title,
       :content,
       :authority,
-      :category_id,
       :image)
   end
 
