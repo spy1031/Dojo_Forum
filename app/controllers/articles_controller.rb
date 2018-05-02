@@ -105,7 +105,7 @@ class ArticlesController < ApplicationController
     if params[:category_id]
       @category_id = params[:category_id]
       @category = Category.find(@category_id)
-      @articles = Article.where("status = ? AND category_id = ? ", true, @category_id).check_authority(current_user).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
+      @articles = @category.articles.where("status = ? ", true).check_authority(current_user).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
     else
       @articles = Article.where("status =? ", true).check_authority(current_user).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
     end
