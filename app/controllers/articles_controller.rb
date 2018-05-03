@@ -12,6 +12,7 @@ class ArticlesController < ApplicationController
   def new
     @article = Article.new(image: "")
     @categories = Category.all
+    @article_categories = @article.categories
   end
 
   def show
