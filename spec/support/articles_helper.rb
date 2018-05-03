@@ -3,7 +3,7 @@ module ArticlesHelper
   def create_user_list
     user_list = []
     15.times do |i|
-      user = FactoryBot.create(:user, email: FFaker::Internet.email, name: "user#{i}")
+      user = FactoryBot.create(:user, email: FFaker::Internet.email, name: "user#{i+1}")
       user_list.push(user)
     end
     return user_list
@@ -11,8 +11,10 @@ module ArticlesHelper
 
   def create_article_list(user_list)
     article_list = []
+    i = 0
     user_list.each do |user|
-      article_list.push(FactoryBot.create(:article, user: user))
+      i +=1
+      article_list.push(FactoryBot.create(:article, user: user, title: "article#{i}"))
     end
     return article_list
   end
