@@ -48,4 +48,12 @@ class User < ApplicationRecord
   def generate_authentication_token
     self.authentication_token = Devise.friendly_token
   end
+
+  def self.get_facebook_user_data(access_token)
+    
+  end
+
+  def self.from_omniauth
+    
+  end
 end
