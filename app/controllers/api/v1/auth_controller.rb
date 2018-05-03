@@ -17,7 +17,7 @@ class Api::V1::AuthController < ApiController
   end
 
   def logout
-    current_user.genrate_authentication_token
+    current_user.generate_authentication_token
     current_user.save!
 
     render json: { message: "Logout successfully."}
