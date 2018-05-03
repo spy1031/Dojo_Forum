@@ -14,9 +14,9 @@ FactoryBot.define do
   factory :article do 
     sequence(:title) { |n| "article#{n}" }
     content { FFaker::Lorem.paragraph }
-    authority
-    status
-    category
+    authority 1
+    status true
+    user { User.first || associaction(:term) }
   end
 
   factory :reply do 
