@@ -9,8 +9,7 @@ class Api::V1::AuthController < ApiController
     if user && user.valid_password?(params[:password])
       render json: {
         message: "Login successfully.",
-        auth_token: user.authentication_token,
-        user_id: user.id
+        auth_token: user.authentication_token
       }
     else
       render json: { message: "Email or Password is wrong"} , status: 401
