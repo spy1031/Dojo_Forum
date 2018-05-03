@@ -44,6 +44,8 @@ gem 'kaminari'
 gem 'filestack-rails', '~> 3.1.0'
 # send HTTP request
 gem 'rest-client'
+# user fb login
+gem 'omniauth-facebook'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
