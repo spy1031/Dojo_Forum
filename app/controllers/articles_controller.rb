@@ -35,12 +35,6 @@ class ArticlesController < ApplicationController
     @article = current_user.articles.build(article_params)
     @article.last_reply_time = Time.now.localtime
     @article.save!
-    
-    Category.all.each do |category|
-      if params[:article_categories][category.id.to_s] != nil
-        @article.article_categories.create(category_id: category.id)
-      end
-    end
 
     if params[:draft]
       @article.status = false
@@ -56,6 +50,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    @article.image ||= ""
     if current_user != @article.user
       redirect_to root_path
     end
@@ -67,11 +62,6 @@ class ArticlesController < ApplicationController
     if current_user != @article.user
       redirect_to root_path
     elsif @article.update(article_params)
-      Category.all.each do |category|
-        if params[:article_categories][category.id.to_s] != nil
-          @article.article_categories.create(category_id: category.id)
-        end
-      end
 
       if params[:draft]
         @article.status = false
@@ -128,7 +118,8 @@ class ArticlesController < ApplicationController
       :title,
       :content,
       :authority,
-      :image)
+      :image,
+      :category_ids => [])
   end
 
   def set_article

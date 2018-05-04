@@ -24,15 +24,9 @@
 
     <label>文章分類:</label>
 
-    <% @categories.each do |category| %>
-      <% if @article_categories.include?(category) %>
-        <input type="checkbox" name="article_categories[<%= category.id %>]" checked>
-      <% else %>
-        <input type="checkbox" name="article_categories[<%= category.id %>]">
-      <% end %>
-        
-      <label><%= category.name %></label>
-    <% end %>
+    <%= f.collection_check_boxes(:category_ids, @categories, :id ,:name) do |b| %>
+      <%= b.check_box %> <%= b.label%>
+    <% end %> 
 
     <br>
     <% if article.status == false%>
