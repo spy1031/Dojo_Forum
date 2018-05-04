@@ -53,7 +53,7 @@ class User < ApplicationRecord
     
   end
 
-  def self.from_omniauth
+  def self.from_omniauth(auth_hash)
     
   end
 end
