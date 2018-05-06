@@ -44,10 +44,10 @@ gem 'kaminari'
 gem 'filestack-rails', '~> 3.1.0'
 # send HTTP request
 gem 'rest-client'
-# user fb login
+# Use fb login
 gem 'omniauth-facebook'
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# Use webmock to block send api
+gem 'webmock' 
 
 group :development, :test do
   gem 'capistrano-rails'
