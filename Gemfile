@@ -48,6 +48,8 @@ gem 'rest-client'
 gem 'omniauth-facebook'
 # Use webmock to block send api
 gem 'webmock' 
+# Use vcr to record api response
+gem 'vcr'
 
 group :development, :test do
   gem 'capistrano-rails'

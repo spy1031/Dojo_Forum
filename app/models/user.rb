@@ -50,7 +50,16 @@ class User < ApplicationRecord
   end
 
   def self.get_facebook_user_data(access_token)
-    
+    url = "https://graph.facebook.com/me"
+    response = RestClient.get url, {params: { access_token: access_token }}
+    data = JSON.parse(response.body)
+
+    if response.code == 200
+      data
+    else
+      Rails.logger.warn(data)
+      nil
+    end
   end
 
   def self.from_omniauth(auth_hash)

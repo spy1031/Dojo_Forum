@@ -30,4 +30,15 @@ RSpec.describe User, type: :model  do
     expect(user1.friend?(user2)).to eq (3)
 
   end
+
+  it "should get_facebook_user_data work(vcr version)" do
+    fb_config = Rails.application.config_for(:facebook)
+    vcr_config = 
+    VCR.use_cassette 'get facebook user data' do
+      expect(User.get_facebook_user_data(fb_config["access_token"])).to eq({
+        "name" => "FB_NAME",
+        "id" => "FB_UID"
+      })
+    end
+  end
 end
