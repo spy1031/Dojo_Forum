@@ -36,9 +36,43 @@ RSpec.describe User, type: :model  do
     vcr_config = 
     VCR.use_cassette 'get facebook user data' do
       expect(User.get_facebook_user_data(fb_config["access_token"])).to eq({
-        "name" => "FB_NAME",
-        "id" => "FB_UID"
+        "name" => "蘇沛宇",
+        "id" => "807899102562905"
       })
     end
+  end
+
+  it "should from_omniauth work" do
+    user1 = create(:user, fb_uid: "123", fb_token: "123")
+    user2 = create(:user, email: "spec@456")
+    fb_data1 = { "email" => "spec@123", "id" =>"123"}
+    fb_data2 = { "email" => "spec@456", "id" =>"456"}
+    fb_data3 = { "email" => "spec@789", "id" =>"789"}
+    auth_hash1 = OmniAuth::AuthHash.new({
+      uid: fb_data1["id"],
+      info: {  email: fb_data1["email"] },
+      credentials: {
+        token: user1.fb_token,
+      }
+    })
+    auth_hash2 = OmniAuth::AuthHash.new({
+      uid: fb_data2["id"],
+      info: {  email: fb_data2["email"] },
+      credentials: {
+        token: user2.fb_token,
+      }
+    })
+    auth_hash3 = OmniAuth::AuthHash.new({
+      uid: fb_data3["id"],
+      info: {  email: fb_data3["email"] },
+      credentials: {
+        token: "789",
+      }
+    })
+
+
+    expect(User.from_omniauth(auth_hash1)).to eq(user1)
+    expect(User.from_omniauth(auth_hash2)).to eq(user2)
+    expect(User.from_omniauth(auth_hash3).persisted?).to eq(true)
   end
 end
