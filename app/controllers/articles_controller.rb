@@ -102,12 +102,13 @@ class ArticlesController < ApplicationController
   def sort
     @attr = params[:attr]
     @order = params[:order]
+    order_attr = ActiveRecord::Base::connection.quote_string(params[:attr]+" "+params[:order])
     if params[:category_id]
-      @category_id = params[:category_id]
+      category_id = params[:category_id]
       @category = Category.find(@category_id)
-      @articles = @category.articles.where("status = ? ", true).check_authority(current_user).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
+      @articles = @category.articles.where("status = ? ", true).check_authority(current_user).order(order_attr).page(params[:page]).per(20)
     else
-      @articles = Article.where("status =? ", true).check_authority(current_user).order(params[:attr]+" "+params[:order]).page(params[:page]).per(20)
+      @articles = Article.where("status =? ", true).check_authority(current_user).order(order_attr).page(params[:page]).per(20)
     end
   end
 
