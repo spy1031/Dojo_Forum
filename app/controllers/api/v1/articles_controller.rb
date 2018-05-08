@@ -40,13 +40,7 @@ class Api::V1::ArticlesController < ApiController
   def create
     @article = current_user.articles.build(article_params)
     @article.last_reply_time = Time.now.localtime
-    @article.save
-
-    Category.all.each do |category|
-      if params[:article_categories][category.id.to_s] != nil
-        @article.article_categories.create(category_id: category.id)
-      end
-    end
+    @article.save!
 
     if params[:draft]
       @article.status = false
@@ -128,7 +122,7 @@ class Api::V1::ArticlesController < ApiController
       :content,
       :authority,
       :image,
-      :article_categories
+      :category_ids =>[]
       )
   end
 
