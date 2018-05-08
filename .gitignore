@@ -22,3 +22,5 @@
 
 .byebug_history
 /config/facebook.yml
+/rspec/fixtures/vcr/get_facebook_user_data.yml
+

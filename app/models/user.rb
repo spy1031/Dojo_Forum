@@ -2,8 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-  
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:facebook]
   validates_presence_of :name
   validates_uniqueness_of :name
 
@@ -47,5 +47,49 @@ class User < ApplicationRecord
 
   def generate_authentication_token
     self.authentication_token = Devise.friendly_token
+  end
+
+  def self.get_facebook_user_data(access_token)
+    url = "https://graph.facebook.com/me"
+    response = RestClient.get url, {params: { access_token: access_token }}
+    data = JSON.parse(response.body)
+
+    if response.code == 200
+      data
+    else
+      Rails.logger.warn(data)
+      nil
+    end
+  end
+
+  def self.from_omniauth(auth_hash)
+    user = User.find_by_fb_uid(auth_hash.uid)
+    puts auth_hash
+    if user
+      user.fb_token = auth_hash.credentials.token
+      user.save!
+      puts "case1"
+      return user
+    end
+
+    # Case 2: Find existing user by email
+    existing_user = User.find_by_email(auth_hash.info.email)
+    if existing_user
+      existing_user.fb_uid = auth_hash.uid
+      existing_user.fb_token = auth_hash.credentials.token
+      existing_user.save!
+      puts "case2"
+      return existing_user
+    end
+    puts "case3"
+    # Case 3: Create new password
+    user = User.new
+    user.fb_uid = auth_hash.uid
+    user.fb_token = auth_hash.credentials.token
+    user.name = auth_hash.info.email.split('@')[0]
+    user.email = auth_hash.info.email
+    user.password = Devise.friendly_token[0,20]
+    user.save!
+    return user
   end
 end

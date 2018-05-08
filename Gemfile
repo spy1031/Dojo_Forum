@@ -44,8 +44,12 @@ gem 'kaminari'
 gem 'filestack-rails', '~> 3.1.0'
 # send HTTP request
 gem 'rest-client'
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# Use fb login
+gem 'omniauth-facebook'
+# Use webmock to block send api
+gem 'webmock' 
+# Use vcr to record api response
+gem 'vcr'
 
 group :development, :test do
   gem 'capistrano-rails'

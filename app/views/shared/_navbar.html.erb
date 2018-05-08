@@ -33,6 +33,7 @@
           <li><%= link_to('<i class = "glyphicon glyphicon-log-out" aria-hidden="true"></i>Log out'.html_safe, destroy_user_session_path,:method => :delete)%></li> |
         <% else %>
          <li><%= link_to('Login', new_user_session_path) %></li>
+         <li><%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
