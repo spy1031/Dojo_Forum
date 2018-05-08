@@ -1,24 +1,28 @@
-# README
+# API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##:Get all articles
 
-Things you may want to cover:
+*METHOD:GET
+*URI: /api/v1/articles
 
-* Ruby version
+##:Show the article 
 
-* System dependencies
+*METHOD:GET
+*URI: /api/v1/articles/:id
 
-* Configuration
+##:Create a article 
 
-* Database creation
+*METHOD:POST
+*URI: /api/v1/articles/:id
+*params: :title,:content,:category_ids,:authority,(:draft)
 
-* Database initialization
+##:Update the article 
 
-* How to run the test suite
+*METHOD:PATCH
+*URI: /api/v1/articles/:id
+*params: :title,:content,:category_ids,:authority,(:draft)
 
-* Services (job queues, cache servers, search engines, etc.)
+##:Delete the article 
 
-* Deployment instructions
-
-* ...
+*METHOD:DELETE
+*URI: /api/v1/articles/:id
