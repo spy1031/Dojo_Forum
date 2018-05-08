@@ -24,13 +24,15 @@ You also can use fb_token to login.
 
 * METHOD:POST
 * URI: /api/v1/articles/:id
-* params: :title,:content,:category_ids,:authority,(:draft),:auth_token
+* params: :title, :content, :authority, :auth_token, :category_ids[]
+If save as draft, add :draft to params
 
 ## Update the article 
 
 * METHOD:PATCH
 * URI: /api/v1/articles/:id
-* params: :title,:content,:category_ids,:authority,(:draft),:auth_token
+* params: :title, :content, :authority, :auth_token, :category_ids[]
+If save as draft, add :draft to params
 
 ## Delete the article 
 
