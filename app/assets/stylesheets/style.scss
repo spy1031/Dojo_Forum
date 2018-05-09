@@ -231,6 +231,10 @@ form {
 .article-form textarea {
   height: 20em;
   font-size: 20px;
+  margin: 20px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .article-form input{

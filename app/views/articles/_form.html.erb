@@ -4,7 +4,7 @@
     <%= f.text_field :title, class: "form-control"%>
 
     <%= f.label :content, "Content" %>
-    <%= f.text_area :content, class: "form-control"%>
+    <%= f.text_area :content,  COLS: "60", WRAP: "HARD"%>
     <br>
     <input id="article_image" style="display:none" type="text" value="<%= @article.image%>" name="article[image]">
     <button name="button" type="button" class="btn btn-default btn-upload-image" onclick=" updateImg(event)">上傳照片</button>
@@ -58,5 +58,6 @@
     })()    
   }
   
+
 </script>
 
