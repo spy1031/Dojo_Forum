@@ -218,6 +218,15 @@ h2.class-title {
   border: 2px solid black;
 }
 
+.btn-friend button:disabled {
+  opacity: 1;
+}
+
+.btn-friend button:hover {
+  background-color: #DAA520;
+  color: white; 
+}
+
 /*======================= article-form =======================*/
 form {
   margin-bottom: 10px;
