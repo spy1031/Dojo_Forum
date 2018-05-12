@@ -1,6 +1,6 @@
 <% if user != current_user %>
   <div class="btn-friend" id="<%=user.id%>" >
-    <% case current_user.friend?(user) %>
+    <% case current_user.friend_state(user) %>
     <% when 0%>
       <button class="btn btn-add-friend" >加好友</button>
     <% when 1%>
@@ -8,7 +8,7 @@
     <% when 2%>
       <button class="btn btn-cancel-invite" >取消邀請</button>
     <% when 3%>
-      <button class="btn" disabled="disabled" >好友</button>
+      <button class="btn" disabled>好友</button>
     <% end %>
   </div>
 <% end %>

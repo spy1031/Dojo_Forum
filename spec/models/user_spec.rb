@@ -19,15 +19,15 @@ RSpec.describe User, type: :model  do
     user2 = create(:user)
     user3 = create(:user)
     
-    expect(user1.friend?(user2)).to eq (0)
+    expect(user1.friend_state(user2)).to eq (0)
     
     friendships1 = user1.friendships.create(friend_id: user2.id, status: 2)
-    expect(user2.friend?(user1)).to eq (1)
-    expect(user1.friend?(user2)).to eq (2)
+    expect(user2.friend_state(user1)).to eq (1)
+    expect(user1.friend_state(user2)).to eq (2)
 
     friendships1.update(status: 3)
-    expect(user2.friend?(user1)).to eq (3)
-    expect(user1.friend?(user2)).to eq (3)
+    expect(user2.friend_state(user1)).to eq (3)
+    expect(user1.friend_state(user2)).to eq (3)
 
   end
 

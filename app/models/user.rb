@@ -29,7 +29,7 @@ class User < ApplicationRecord
   end
 
   # 3 repsent friend, 2 represnt wait user agree, 1 represent wait self agree
-  def friend?(user)
+  def friend_state(user)
     if self.friends.include?(user) || self.inverse_friends.include?(user) || self == user
       return 3
     elsif self.requests.include?(user)
