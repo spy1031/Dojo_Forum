@@ -51,6 +51,9 @@ GEM
       sass (>= 3.3.4)
     brakeman (4.2.1)
     builder (3.2.3)
+    bullet (5.7.5)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11.0)
     byebug (10.0.2)
     capistrano (3.10.1)
       airbrussh (>= 1.0.0)
@@ -287,6 +290,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.10)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.11.0)
     unirest (1.1.2)
       addressable (~> 2.3.5)
       json (~> 1.8.1)
@@ -315,6 +319,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.3.7)
   brakeman
+  bullet
   byebug
   capistrano-passenger
   capistrano-rails
